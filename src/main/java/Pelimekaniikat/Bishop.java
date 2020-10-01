@@ -3,8 +3,8 @@ package Pelimekaniikat;
 import java.io.Serializable;
 
 public class Bishop extends Piece implements Serializable{
-	
-	private String nimi="Bishop";
+
+	final private String nimi="Bishop";
 	
 	public Bishop(Colour colour, int x, int y) {
 		super(colour, x, y);

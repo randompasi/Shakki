@@ -77,7 +77,7 @@ public class Graphics extends Panel {
                 square.widthProperty().bind(chessBoard.widthProperty().divide(size));
                 square.heightProperty().bind(chessBoard.heightProperty().divide(size));
             	if(CB.annaStringBoard(col, row) != null && CB.annaStringBoard(col, row).annaPiece() != null){
-            		ImageView imgView = new ImageView(chooseImage(CB.annaStringBoard(col, row)));
+            		ImageView imgView = new ImageView(chooseImage(CB.annaStringBoard(col, row).annaPiece()));
             		chessBoard.add(imgView,col ,row );
        
             		imgView.fitWidthProperty().bind(square.widthProperty()); 
@@ -108,7 +108,6 @@ public class Graphics extends Panel {
             					vaihto=true;
                 				toX = j;
                 				toY = i;
-                				System.out.println(moveX+","+moveY+","+toX+","+toY);
                 				CB.move(moveX, moveY, toX, toY);
                 				
                 				createChessBoard();
@@ -119,46 +118,28 @@ public class Graphics extends Panel {
             }
 
 	
-	public Image chooseImage(Spot spot) throws IOException {
+	public Image chooseImage(Piece piece) throws IOException {
 		Image image;
+		String resourceName = piece.getColour().toString() + piece.annaNimi();
 
-				if(isWhitePiece(spot)){
-				image =	loadImage(getClass().getResource(parser(spot.annaPiece(), "W")));
+				if(isWhitePiece(piece)){
+				image =	loadImage(resourceLocation(piece, resourceName));
 
 				}
 				else{
-					image =	loadImage(getClass().getResource(parser(spot.annaPiece(), "B")));
+					image =	loadImage(resourceLocation(piece, resourceName));
 				}
 				return image;
 	}
 
-	private String parser(Piece piece, String color){
-		String url;
+	private URL resourceLocation(Piece piece, String resourceName){
 
-		if(piece instanceof Bishop)
-			url = "/images/"+ color +"B.gif";
+		return getClass().getResource("/images/"+ resourceName + ".gif");
 
-		else if(piece instanceof King)
-			url = "/images/"+ color +"K.gif";
-
-
-		else if(piece instanceof Knight)
-			url = "/images/"+ color +"N.gif";
-
-		else if(piece instanceof Rook)
-			url = "/images/"+ color +"R.gif";
-
-		else if(piece instanceof Queen)
-			url = "/images/"+ color +"Q.gif";
-
-		else
-			url = "/images/"+ color +"P.gif";
-
-		return url;
 	}
 
-	private boolean isWhitePiece(Spot spot){
-		Colour vari = spot.annaPiece().annaVari();
+	private boolean isWhitePiece(Piece piece){
+		Colour vari = piece.annaVari();
 		return vari == Colour.WHITE;
 	}
 

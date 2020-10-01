@@ -3,8 +3,8 @@ package Pelimekaniikat;
 import java.io.Serializable;
 
 public class King extends Piece implements Serializable{
-	
-	private String nimi="King";
+
+	final private String nimi="King";
 	
 	public King(Colour colour, int x, int y) {
 		super(colour, x, y);

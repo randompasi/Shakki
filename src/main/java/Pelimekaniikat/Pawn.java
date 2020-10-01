@@ -6,7 +6,7 @@ public class Pawn extends Piece implements Serializable{
 
 	
 	//REMEMBER TO CHANGE THIS NAME ADRIAN! NO SPACE!
-	private String nimi="Pawn ";
+	final private String nimi="Pawn";
 	
 	
 	public Pawn(Colour colour, int x, int y) {

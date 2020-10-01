@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Knight extends Piece implements Serializable{
 
-	private String nimi="Knight";
+	final private String nimi="Knight";
 	
 	public Knight(Colour colour, int x, int y) {
 		super(colour, x, y);

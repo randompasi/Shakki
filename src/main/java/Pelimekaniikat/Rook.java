@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Rook extends Piece implements Serializable{
 	
-	private String nimi="Rook";
+	 final private String nimi="Rook";
 	
 	public Rook(Colour colour, int x, int y) {
 		super(colour, x, y);

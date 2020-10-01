@@ -3,7 +3,9 @@ package Pelimekaniikat;
 import java.io.Serializable;
 
 public abstract class Piece implements Serializable{
-	
+
+
+
 	protected Colour colour;
 	protected int x;
 	protected int y;
@@ -39,6 +41,7 @@ public abstract class Piece implements Serializable{
 		this.y=y;
 		firstMove=false;
 	}
+	public Colour getColour() { return colour; }
 	public abstract String annaNimi();
 	public abstract boolean isMovePossible(int fromX, int fromY, int toX, int toY);
 	public abstract boolean isAttackPossible(int fromX, int fromY, int toX, int toY);
