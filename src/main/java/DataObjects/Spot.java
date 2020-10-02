@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package DataObjects;
 
 import java.io.Serializable;
 
@@ -7,9 +7,10 @@ public class Spot implements Serializable{
 	
 	private int x;
 	private int y;
-	private Piece piece; 
-	
-	public Spot(int x, int y,Piece piece){
+	private Piece piece;
+
+
+	public Spot(int x, int y, Piece piece){
 		this.x=x;
 		this.y=y;
 		this.piece=piece;

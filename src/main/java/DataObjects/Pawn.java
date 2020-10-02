@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package DataObjects;
 
 import java.io.Serializable;
 
@@ -18,6 +18,7 @@ public class Pawn extends Piece implements Serializable{
 		if(super.colour==Colour.WHITE){
 			if(fromY==1){
 				if(toX == fromX && toY-fromY == 2){
+					System.out.println("valkoinen");
 					return true;
 				}
 			}
@@ -26,11 +27,16 @@ public class Pawn extends Piece implements Serializable{
 			}
 		}else{
 			if(fromY==6){
+				System.out.println("Musta");
 				if(toX == fromX && fromY-toY == 2){
+					System.out.println("Musta1");
 					return true;
+
 				}
 			}
 			if(toX == fromX && fromY - toY == 1){
+				System.out.println("Musta2");
+
 				return true;
 			}
 		}
@@ -50,7 +56,7 @@ public class Pawn extends Piece implements Serializable{
 		return false;
 	}
 	
-	public String annaNimi(){
+	public String getName(){
 		return nimi;
 	}
 }

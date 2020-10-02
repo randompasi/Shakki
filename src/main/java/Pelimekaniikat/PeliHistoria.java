@@ -1,5 +1,7 @@
 package Pelimekaniikat;
 
+import DataObjects.Piece;
+
 import java.io.Serializable;
 import java.util.ArrayList;
 

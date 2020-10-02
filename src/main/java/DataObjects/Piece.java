@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package DataObjects;
 
 import java.io.Serializable;
 
@@ -42,7 +42,7 @@ public abstract class Piece implements Serializable{
 		firstMove=false;
 	}
 	public Colour getColour() { return colour; }
-	public abstract String annaNimi();
+	public abstract String getName();
 	public abstract boolean isMovePossible(int fromX, int fromY, int toX, int toY);
 	public abstract boolean isAttackPossible(int fromX, int fromY, int toX, int toY);
 	

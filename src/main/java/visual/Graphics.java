@@ -1,6 +1,8 @@
 package visual;
 
 
+import DataObjects.Colour;
+import DataObjects.Piece;
 import Pelimekaniikat.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -17,7 +19,7 @@ public class Graphics extends Panel {
 	
 	private final int size = 8;
 	private GridPane chessBoard = new GridPane();
-	private ChessBoard CB;
+	private ChessLogic CB;
 	private Color blue = Color.BLUE;
 	private final Rectangle[][] taulu = new Rectangle[8][8];
 	private boolean vaihto = true;
@@ -27,12 +29,12 @@ public class Graphics extends Panel {
 	private int toY = 0;
 	
 	public Graphics() throws IOException {
-		CB = new ChessBoard();
+		CB = new ChessLogic();
 		createChessBoard();
 		
 	}
 	
-	public Graphics(ChessBoard CB) throws IOException {
+	public Graphics(ChessLogic CB) throws IOException {
 		this.CB=CB;
 		createChessBoard();
 	}
@@ -40,7 +42,7 @@ public class Graphics extends Panel {
 
 
 
-	public ChessBoard getCB() {
+	public ChessLogic getCB() {
 		return CB;
 	}
 
@@ -76,8 +78,8 @@ public class Graphics extends Panel {
                 
                 square.widthProperty().bind(chessBoard.widthProperty().divide(size));
                 square.heightProperty().bind(chessBoard.heightProperty().divide(size));
-            	if(CB.annaStringBoard(col, row) != null && CB.annaStringBoard(col, row).annaPiece() != null){
-            		ImageView imgView = new ImageView(chooseImage(CB.annaStringBoard(col, row).annaPiece()));
+            	if(CB.getSpot(col, row) != null && CB.getSpot(col, row).annaPiece() != null){
+            		ImageView imgView = new ImageView(chooseImage(CB.getSpot(col, row).annaPiece()));
             		chessBoard.add(imgView,col ,row );
        
             		imgView.fitWidthProperty().bind(square.widthProperty()); 
@@ -120,7 +122,7 @@ public class Graphics extends Panel {
 	
 	public Image chooseImage(Piece piece) throws IOException {
 		Image image;
-		String resourceName = piece.getColour().toString() + piece.annaNimi();
+		String resourceName = piece.getColour().toString() + piece.getName();
 
 				if(isWhitePiece(piece)){
 				image =	loadImage(resourceLocation(piece, resourceName));

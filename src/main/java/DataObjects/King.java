@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package DataObjects;
 
 import java.io.Serializable;
 
@@ -32,7 +32,7 @@ public class King extends Piece implements Serializable{
 		return isMovePossible(fromX, fromY, toX, toY);
 	}
 	
-	public String annaNimi(){
+	public String getName(){
 		return nimi;
 	}
 }

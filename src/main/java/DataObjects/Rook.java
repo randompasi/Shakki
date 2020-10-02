@@ -1,23 +1,21 @@
-package Pelimekaniikat;
+package DataObjects;
 
 import java.io.Serializable;
 
-public class Knight extends Piece implements Serializable{
-
-	final private String nimi="Knight";
+public class Rook extends Piece implements Serializable{
 	
-	public Knight(Colour colour, int x, int y) {
+	 final private String nimi="Rook";
+	
+	public Rook(Colour colour, int x, int y) {
 		super(colour, x, y);
 		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
-		
-		//L type move
-		if(Math.abs(toX-fromX)==1 && Math.abs(toY-fromY)==2){
+		if(toX == fromX){
 			return true;
 		}
-		if(Math.abs(toX-fromX)==2 && Math.abs(toY-fromY)==1){
+		if(toY == fromY){
 			return true;
 		}
 		return false;
@@ -26,7 +24,8 @@ public class Knight extends Piece implements Serializable{
 		return isMovePossible(fromX, fromY, toX, toY);
 	}
 	
-	public String annaNimi(){
+	public String getName(){
 		return nimi;
 	}
+
 }

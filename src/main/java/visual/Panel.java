@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import Pelimekaniikat.ChessBoard;
+import Pelimekaniikat.ChessLogic;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;
@@ -73,7 +73,7 @@ public class Panel extends Application  {
 			public void handle(ActionEvent event) {
 				try {
 					ObjectInputStream in = new ObjectInputStream(new FileInputStream("SavedGame.bin"));
-					ChessBoard Saved = (ChessBoard) in.readObject();
+					ChessLogic Saved = (ChessLogic) in.readObject();
 					
 					graphics = new Graphics(Saved);
 					window.setScene(chess= new Scene(graphics.getChessBoard(), 600, 600));
@@ -103,7 +103,7 @@ public class Panel extends Application  {
 	           String filename =  "SavedGame.bin";
 	           try {
 				ObjectOutputStream os = new ObjectOutputStream(new FileOutputStream(filename));
-				ChessBoard as = graphics.getCB();
+				ChessLogic as = graphics.getCB();
 				os.writeObject(as);
 				os.close();
 			} catch (IOException e) {
