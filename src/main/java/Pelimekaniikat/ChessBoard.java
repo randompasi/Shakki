@@ -13,50 +13,47 @@ public class ChessBoard {
 
         board = new Spot[8][8];
 
-        for(int i=0;i<8;i++){
-            for(int j=0;j<8;j++){
-                board[i][j]=new Spot(i, j, null);
+        for (int i = 0; i < 8; i++) {
+            for (int j = 0; j < 8; j++) {
+                board[i][j] = new Spot(i, j, null);
             }
         }
 
-        //Luodaan valkoiset nappulat
 
-        for(int i=0;i<8;i++){
+
+    }
+
+
+    public void createStartingPieces(){
+        for (int i = 0; i < 8; i++) {
             board[i][1].addPiece(new Pawn(Colour.WHITE, i, 1));
         }
-
-        board[0][0].addPiece( new Rook(Colour.WHITE, 0, 0));
-        board[7][0].addPiece( new Rook(Colour.WHITE, 7, 0));
-
-        board[1][0].addPiece( new Knight(Colour.WHITE, 1, 0));
-        board[6][0].addPiece( new Knight(Colour.WHITE, 6, 0));
-
-        board[2][0].addPiece( new Bishop(Colour.WHITE, 2, 0));
-        board[5][0].addPiece( new Bishop(Colour.WHITE, 5, 0));
-
-        board[3][0].addPiece( new Queen(Colour.WHITE,3,0));
-
-        board[4][0].addPiece( new King(Colour.WHITE,4,0));
-
-        //Luodaan mustat nappulat
 
         for(int i=0;i<8;i++){
             board[i][6].addPiece(new Pawn(Colour.BLACK, i, 6));
         }
-
-        board[0][7].addPiece( new Rook(Colour.BLACK, 0, 7));
-        board[7][7].addPiece( new Rook(Colour.BLACK, 7, 7));
-
-        board[1][7].addPiece( new Knight(Colour.BLACK, 1, 7));
-        board[6][7].addPiece( new Knight(Colour.BLACK, 6, 7));
-
-        board[2][7].addPiece( new Bishop(Colour.BLACK, 2, 7));
-        board[5][7].addPiece( new Bishop(Colour.BLACK, 5, 7));
-
-        board[3][7].addPiece( new Queen(Colour.BLACK,3,7));
-
-        board[4][7].addPiece( new King(Colour.BLACK,4,7));
+        createOneSide(Colour.BLACK, 7);
+        createOneSide(Colour.WHITE, 0);
     }
+
+
+
+    private void createOneSide(Colour colour, int yCoordinate){
+
+
+            board[0][yCoordinate].addPiece( new Rook(colour, 0, yCoordinate));
+            board[7][yCoordinate].addPiece( new Rook(colour, 7, yCoordinate));
+
+            board[1][yCoordinate].addPiece( new Knight(colour, 1, yCoordinate));
+            board[6][yCoordinate].addPiece( new Knight(colour, 6, yCoordinate));
+
+            board[2][yCoordinate].addPiece( new Bishop(colour, 2, yCoordinate));
+            board[5][yCoordinate].addPiece( new Bishop(colour, 5, yCoordinate));
+
+            board[3][yCoordinate].addPiece( new Queen(colour,3,yCoordinate));
+
+            board[4][yCoordinate].addPiece( new King(colour,4,yCoordinate));
+        }
 
 
     public Spot getSpotWithCoordinates(int x, int y){

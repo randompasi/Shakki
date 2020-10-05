@@ -26,6 +26,7 @@ public class ChessLogic implements Serializable{
 
 
 		chessBoard = new ChessBoard();
+		chessBoard.createStartingPieces();
 		moves=1;
 		enPassantBoard=new boolean[8][8];
 		enPassantBoardMove=new int[8][8];

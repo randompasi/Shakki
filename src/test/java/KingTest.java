@@ -40,6 +40,11 @@ public class KingTest {
             }
 
 
+            public void UnacceptapleMoves(){
+
+            }
+
+
 
 
 }
