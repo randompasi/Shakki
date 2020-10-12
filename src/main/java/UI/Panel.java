@@ -1,4 +1,4 @@
-package visual;
+package UI;
 
 
 import javafx.application.Application;
@@ -9,7 +9,7 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import Pelimekaniikat.ChessLogic;
+import GameLogic.ChessLogic;
 import javafx.geometry.Insets;
 import javafx.scene.Scene;
 import javafx.scene.layout.GridPane;

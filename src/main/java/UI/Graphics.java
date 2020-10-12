@@ -1,9 +1,9 @@
-package visual;
+package UI;
 
 
 import DataObjects.Colour;
 import DataObjects.Piece;
-import Pelimekaniikat.*;
+import GameLogic.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;

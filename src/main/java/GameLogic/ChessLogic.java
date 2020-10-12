@@ -1,10 +1,10 @@
-package Pelimekaniikat;
+package GameLogic;
 
 import java.io.Serializable;
 
 import DataObjects.*;
-import visual.Winner;
-import visual.changePawn;
+import UI.Winner;
+import UI.changePawn;
 
 public class ChessLogic implements Serializable{
 

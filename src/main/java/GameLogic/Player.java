@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package GameLogic;
 
 import DataObjects.Colour;
 

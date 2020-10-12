@@ -1,12 +1,10 @@
-package visual;
+package UI;
 
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.scene.*;
 import javafx.scene.layout.*;
 import javafx.scene.control.*;
-
-import java.awt.event.ActionEvent;
 
 import javafx.geometry.*;
 public class changePawn {

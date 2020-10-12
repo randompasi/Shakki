@@ -1,4 +1,4 @@
-package Pelimekaniikat;
+package GameLogic;
 
 import DataObjects.*;
 
@@ -16,6 +16,7 @@ public class ChessBoard {
         for (int i = 0; i < 8; i++) {
             for (int j = 0; j < 8; j++) {
                 board[i][j] = new Spot(i, j, null);
+
             }
         }
 
@@ -40,19 +41,15 @@ public class ChessBoard {
 
     private void createOneSide(Colour colour, int yCoordinate){
 
-
             board[0][yCoordinate].addPiece( new Rook(colour, 0, yCoordinate));
+            board[1][yCoordinate].addPiece( new Knight(colour, 1, yCoordinate));
+            board[2][yCoordinate].addPiece( new Bishop(colour, 2, yCoordinate));
+            board[3][yCoordinate].addPiece( new Queen(colour,3,yCoordinate));
+            board[4][yCoordinate].addPiece( new King(colour,4,yCoordinate));
+            board[5][yCoordinate].addPiece( new Bishop(colour, 5, yCoordinate));
+            board[6][yCoordinate].addPiece( new Knight(colour, 6, yCoordinate));
             board[7][yCoordinate].addPiece( new Rook(colour, 7, yCoordinate));
 
-            board[1][yCoordinate].addPiece( new Knight(colour, 1, yCoordinate));
-            board[6][yCoordinate].addPiece( new Knight(colour, 6, yCoordinate));
-
-            board[2][yCoordinate].addPiece( new Bishop(colour, 2, yCoordinate));
-            board[5][yCoordinate].addPiece( new Bishop(colour, 5, yCoordinate));
-
-            board[3][yCoordinate].addPiece( new Queen(colour,3,yCoordinate));
-
-            board[4][yCoordinate].addPiece( new King(colour,4,yCoordinate));
         }
 
 

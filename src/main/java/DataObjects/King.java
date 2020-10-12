@@ -12,6 +12,7 @@ public class King extends Piece implements Serializable{
 	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
+		//System.out.println(fromX +" "+fromY+" "+toX+" "+toY);
 		//normal move - any direction, distance 1
 		if(Math.abs(fromX-toX)<=1 && Math.abs(fromY-toY) <=1){
 			return true;

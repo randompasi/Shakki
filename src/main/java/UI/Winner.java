@@ -1,4 +1,4 @@
-package visual;
+package UI;
 import javafx.stage.Modality;
 
 import javafx.stage.Stage;
