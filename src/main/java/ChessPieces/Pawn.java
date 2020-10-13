@@ -1,13 +1,15 @@
 package ChessPieces;
 
 import java.io.Serializable;
+import java.util.function.BiFunction;
+
 
 public class Pawn extends Piece implements Serializable{
 
 	
 	//REMEMBER TO CHANGE THIS NAME ADRIAN! NO SPACE!
 	final private String nimi="Pawn";
-	
+	private final BiFunction<Integer,Integer,Integer> subtraction = (a, b) -> (a - b);
 	
 	public Pawn(Colour colour, int x, int y) {
 		super(colour, x, y);
@@ -18,30 +20,30 @@ public class Pawn extends Piece implements Serializable{
 		if(super.colour==Colour.WHITE){
 			if(fromY==1){
 				if(toX == fromX && toY-fromY == 2){
-					System.out.println("valkoinen");
 					return true;
 				}
 			}
-			if(toX == fromX && toY - fromY == 1){
-				return true;
-			}
+				return basicMoveCheck(subtraction.apply(toY,fromY), toX);
+
 		}else{
 			if(fromY==6){
-				System.out.println("Musta");
 				if(toX == fromX && fromY-toY == 2){
-					System.out.println("Musta1");
 					return true;
 
 				}
 			}
 			if(toX == fromX && fromY - toY == 1){
-				System.out.println("Musta2");
 
-				return true;
+				return  basicMoveCheck(subtraction.apply(fromY,toY),toX);
 			}
 		}
 		return false;
 	}
+
+	private boolean basicMoveCheck(int subtraction, int toX){
+		return toX == x && subtraction == 1;
+	}
+
 	
 	public boolean isAttackPossible(int fromX, int fromY, int toX, int toY){
 		if(super.colour==Colour.WHITE){

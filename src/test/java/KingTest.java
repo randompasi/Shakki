@@ -65,7 +65,7 @@ public class KingTest extends  BeforeEachTest {
             king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
             for (Coordinate toCoornidate : coordinates ){
                 if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate()) > 1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) > 1) {
-                    assertFalse(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                    assertFalse(king.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
                 }
 
             }

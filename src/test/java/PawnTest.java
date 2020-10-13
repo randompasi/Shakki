@@ -1,10 +1,9 @@
 import ChessPieces.Colour;
-import ChessPieces.King;
 import ChessPieces.Pawn;
 import ChessPieces.Piece;
-import GameLogic.ChessBoard;
+
 import Util.Coordinate;
-import org.junit.jupiter.api.BeforeEach;
+
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
@@ -43,17 +42,23 @@ public class PawnTest extends BeforeEachTest {
     public void acceptableMovesTest(Colour colour){
 
         for (Coordinate fromCoordinate : coordinates ){
-            Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-            king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-            for (Coordinate toCoornidate : coordinates ){
-                if(toCoornidate.getxCoordinate() == fromCoordinate.getxCoordinate() && toCoornidate.getyCoordinate() - fromCoordinate.getyCoordinate() == 1) {
-                    assertTrue(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+            Piece pawn = new Pawn(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+            pawn.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+
+                for (Coordinate toCoornidate : coordinates) {
+                    if (toCoornidate.getxCoordinate() == fromCoordinate.getxCoordinate() && toCoornidate.getyCoordinate() - fromCoordinate.getyCoordinate() == 1 && colour == Colour.WHITE) {
+                        assertTrue(pawn.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                    } else if (toCoornidate.getxCoordinate() == fromCoordinate.getxCoordinate() && fromCoordinate.getyCoordinate() - toCoornidate.getyCoordinate() == 1 &&  colour == Colour.BLACK) {
+                        assertTrue(pawn.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                    }
+
                 }
 
-            }
+
+                }
+
         }
 
-    }
 
 //
 //    @ParameterizedTest
