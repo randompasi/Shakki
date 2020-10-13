@@ -1,6 +1,6 @@
 package GameLogic;
 
-import DataObjects.*;
+import ChessPieces.*;
 
 
 

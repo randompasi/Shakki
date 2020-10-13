@@ -1,4 +1,4 @@
-package DataObjects;
+package ChessPieces;
 
 import java.io.Serializable;
 

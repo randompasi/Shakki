@@ -1,4 +1,4 @@
-package DataObjects;
+package ChessPieces;
 
 import java.io.Serializable;
 
@@ -8,7 +8,6 @@ public class King extends Piece implements Serializable{
 	
 	public King(Colour colour, int x, int y) {
 		super(colour, x, y);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
@@ -17,7 +16,12 @@ public class King extends Piece implements Serializable{
 		if(Math.abs(fromX-toX)<=1 && Math.abs(fromY-toY) <=1){
 			return true;
 		}
-		//castling
+		else {
+			return isCastling(fromX, fromY, toX, toY) ;
+		}
+	}
+
+	private boolean isCastling(int fromX, int fromY, int toX, int toY){
 		if(super.colour==Colour.WHITE){
 			if((super.firstMove && fromX == 4 && fromY == 0 && toY==0 && toX == 6) || ((super.firstMove && fromX == 4 && fromY == 0 && toY==0 && toX == 2)) ){
 				return true;

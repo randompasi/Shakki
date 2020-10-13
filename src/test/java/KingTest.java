@@ -1,11 +1,11 @@
-import DataObjects.Colour;
-import DataObjects.King;
-import DataObjects.Piece;
+import ChessPieces.Colour;
+import Util.Coordinate;
+import ChessPieces.King;
+import ChessPieces.Piece;
 import GameLogic.ChessBoard;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
-import org.opentest4j.AssertionFailedError;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,22 +14,10 @@ import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 
-public class KingTest {
+public class KingTest extends  BeforeEachTest {
 
 
-            private ChessBoard chessBoard;
-            private List<Coordinate> coordinates = new ArrayList<>();
 
-    @BeforeEach
-            private void Init(){
-                chessBoard = new ChessBoard();
-                for (int x = 0; x < 8 ; x++){
-                    for (int y = 0; y < 8 ; y++ ) {
-                        coordinates.add(new Coordinate(x ,y));
-                    }
-                    }
-
-            }
 
     @ParameterizedTest
     @EnumSource(Colour.class)
@@ -52,32 +40,58 @@ public class KingTest {
 
     @ParameterizedTest
     @EnumSource(Colour.class)
-    public void movesTest(Colour colour){
-
-
+    public void acceptableMovesTest(Colour colour){
 
                     for (Coordinate fromCoordinate : coordinates ){
                         Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+                        king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
                         for (Coordinate toCoornidate : coordinates ){
                             if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate())<=1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) <=1) {
                                 assertTrue(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
                             }
-                            else {
-                                try {
-                                    assertFalse(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
-                                }
-                                catch (AssertionFailedError error){
-                                    System.out.println(fromCoordinate.getxCoordinate() +" "+fromCoordinate.getyCoordinate()+" "+toCoornidate.getxCoordinate()+" "+toCoornidate.getyCoordinate());
-                                }
-                            }
+
                         }
                     }
-//
-//
-//
-//                    }
+
             }
 
+
+    @ParameterizedTest
+    @EnumSource(Colour.class)
+    public void notAcceptableMovesTest(Colour colour){
+
+        for (Coordinate fromCoordinate : coordinates ){
+            Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+            king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+            for (Coordinate toCoornidate : coordinates ){
+                if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate()) > 1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) > 1) {
+                    assertFalse(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                }
+
+            }
+        }
+
+    }
+    @ParameterizedTest
+    @EnumSource(Colour.class)
+    public void castlingTest(Colour colour){
+        Piece king;
+
+        if(colour == Colour.WHITE) {
+            king = new King(colour, 4, 0);
+            assertTrue(king.isAttackPossible(4,0,6,0));
+            assertTrue(king.isAttackPossible(4,0,2,0));
+        }else{
+            king = new King(colour, 4, 7);
+            assertTrue(king.isAttackPossible(4,7,6,7));
+            assertTrue(king.isAttackPossible(4,7,2,7));
+
+        }
+
+
+
+
+    }
 
 
 

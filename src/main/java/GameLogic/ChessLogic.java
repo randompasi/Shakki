@@ -2,7 +2,7 @@ package GameLogic;
 
 import java.io.Serializable;
 
-import DataObjects.*;
+import ChessPieces.*;
 import UI.Winner;
 import UI.changePawn;
 

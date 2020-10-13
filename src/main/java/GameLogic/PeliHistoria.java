@@ -1,6 +1,6 @@
 package GameLogic;
 
-import DataObjects.Piece;
+import ChessPieces.Piece;
 
 import java.io.Serializable;
 import java.util.ArrayList;

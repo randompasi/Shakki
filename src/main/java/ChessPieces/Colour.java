@@ -1,4 +1,4 @@
-package DataObjects;
+package ChessPieces;
 
 public enum Colour {
 	WHITE,BLACK

@@ -1,8 +1,8 @@
 package UI;
 
 
-import DataObjects.Colour;
-import DataObjects.Piece;
+import ChessPieces.Colour;
+import ChessPieces.Piece;
 import GameLogic.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;

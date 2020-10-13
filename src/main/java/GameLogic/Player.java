@@ -1,6 +1,6 @@
 package GameLogic;
 
-import DataObjects.Colour;
+import ChessPieces.Colour;
 
 import java.io.Serializable;
 
