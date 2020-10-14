@@ -3,7 +3,7 @@ package Util;
 public class Coordinate {
 
     /**
-     * need to make changes so everything uses this class for transfering coornidates
+     * need to make changes so everything uses this class for transfering coornidates.
      */
 
 
