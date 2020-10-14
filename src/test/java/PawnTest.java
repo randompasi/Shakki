@@ -7,10 +7,7 @@ import Util.Coordinate;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-import java.util.ArrayList;
-import java.util.List;
 
-import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class PawnTest extends BeforeEachTest {
@@ -35,7 +32,7 @@ public class PawnTest extends BeforeEachTest {
         }
 
 
-        }
+    }
 
     @ParameterizedTest
     @EnumSource(Colour.class)
@@ -55,9 +52,9 @@ public class PawnTest extends BeforeEachTest {
                 }
 
 
-                }
-
         }
+
+    }
 
 
 //
