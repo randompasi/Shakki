@@ -292,7 +292,7 @@ public class ChessLogic implements Serializable{
 						if(nothingHits(4, 0, Colour.BLACK) && nothingHits(3 ,0, Colour.BLACK) && nothingHits(2, 0 , Colour.BLACK)){
 							
 							executeMove(0, 0, 3, 0, null);
-							movePiece(fromX, fromY, toX, toY); //siirret��n king
+							movePiece(fromX, fromY, toX, toY); //siirretn king
 							hitsKing(chessBoard.getSpotWithCoordinates(3, 0).annaPiece().annaVari(), 3, 0);
 						}
 						
@@ -302,14 +302,14 @@ public class ChessLogic implements Serializable{
 				if(fromX==4 && fromY==7 && toX==6 && toY==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(nothingHits(4, 7, Colour.WHITE) && nothingHits(5 ,7 , Colour.WHITE) && nothingHits(6, 7, Colour.WHITE)){
 						executeMove(7, 7, 5, 7, null);
-						movePiece(fromX, fromY, toX, toY); //siirret��n king
+						movePiece(fromX, fromY, toX, toY); //siirretn king
 						hitsKing(chessBoard.getSpotWithCoordinates(5, 7).annaPiece().annaVari(), 5, 7);
 					}
 				}else if(fromX==4 && fromY==7 && toX==2 && toY==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(isNotOnTheWay(0, 7, 3, 7)){
 						if(nothingHits(4, 7, Colour.WHITE) && nothingHits(3 , 7, Colour.WHITE) && nothingHits(2, 7 , Colour.WHITE)){
 							executeMove(0, 7, 3, 7, null);
-							movePiece(fromX, fromY, toX, toY); //siirret��n king
+							movePiece(fromX, fromY, toX, toY); //siirretn king
 							hitsKing(chessBoard.getSpotWithCoordinates(3, 7).annaPiece().annaVari(), 3, 7);
 						}
 					}
@@ -321,7 +321,7 @@ public class ChessLogic implements Serializable{
 	private void enPassantMove(int fromX,int fromY,int toX,int toY,int moves){ //metodi katso onko movePiece "en passant" tapanen
 		
 		if(toSpot.annaPiece().getName().matches("Pawn ") && Math.abs(fromY-toY)==2){
-			enPassantBoard[toX][toY]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti miss�on tapahtunut "en passant"
+			enPassantBoard[toX][toY]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti misson tapahtunut "en passant"
 			enPassantBoardMove[toX][toY]=moves; //asettaa "enPassantBoardMove" int taulukkoon kuinka mones move se oli 
 		}
 		
