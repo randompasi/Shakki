@@ -57,16 +57,16 @@ public class ChessLogic implements Serializable{
 		if(fromSpot !=null){ // katsotaan onko from paikkassa nappula
 			if(checkTurn(fromX, fromY)){
 				if(toSpot.annaPiece() !=null){ // katsotaan onko to paikassa nappula
-					if(checkPiecesColour(fromX,fromY,toX,toY)){ // jos on katsotaan sen v�ri 
+					if(checkPiecesColour(fromX,fromY,toX,toY)){
 						if(fromSpot.annaPiece().isAttackPossible(fromX, fromY, toX, toY)){ // jos ovat eri, katsotaan onko attack mahdollista
-							if(isNotOnTheWay(fromX, fromY, toX, toY)){ // jos on mahdollista, katsotaan onko to ja from v�lill�  jotain nappula
+							if(isNotOnTheWay(fromX, fromY, toX, toY)){
 								movePiece(fromX, fromY, toX, toY);
 							}
 						}
 					}
 				}else{ //jos ei ole  nappula
 					if(fromSpot.annaPiece().isMovePossible(fromX, fromY, toX, toY)){//katostaan onko move mahdollista
-						if(isNotOnTheWay(fromX, fromY, toX, toY)){  // jos on mahdollista, katsotaan onko to ja from v�lill� jotain nappula
+						if(isNotOnTheWay(fromX, fromY, toX, toY)){  //
 							if(fromSpot.annaPiece().getName().matches("King") && Math.abs(toX-fromX)>1){
 								Castle(fromX, fromY, toX, toY); // castling option
 							}else{
@@ -107,9 +107,9 @@ public class ChessLogic implements Serializable{
 				enPassantMove(fromX, fromY, toX, toY, moves); //tarkastellaan "en passant"
 				hitsKing(toSpot.annaPiece().annaVari(), toX, toY);
 				setTurn(); // asetetaan peli vuoro
-				moves++; // lis�t��n move
+				moves++; // li
 				pawnAtEnd(toX, toY);//pawn at 0 or 7
-				PH.lisaaHistoriaan(toSpot.annaPiece(),fromX, fromY, toX, toY); //lis�minen liike Peli Historiaan
+				PH.lisaaHistoriaan(toSpot.annaPiece(),fromX, fromY, toX, toY); //lisen liike Peli Historiaan
 				kingCheckMate();
 				}else{
 					System.out.println("/////////////////  WRONG MOVE, KING WILL BE ON CHECK  /////////////////\n");
@@ -172,16 +172,16 @@ public class ChessLogic implements Serializable{
 
 	
 
-	private boolean checkPiecesColour(int fromX, int fromY,int toX,int toY){ //metodi palautta true jos from ja to paikassa nappulat ovat eriv�risi�, ja palauttaa false jos  ovat eri
+	private boolean checkPiecesColour(int fromX, int fromY,int toX,int toY){ //metodi palautta true jos from ja to paikassa nappulat ovapalauttaa false jos  ovat eri
 		if(fromSpot.annaPiece().annaVari() == toSpot.annaPiece().annaVari()){
 			return false;
 		}
 		return true;
 	}
 	
-	private boolean isNotOnTheWay(int fromX, int fromY,int toX,int toY){ //t�m�n metodin avulla katsotaan onko jotain nappuloita from ja to v�lill�
+	private boolean isNotOnTheWay(int fromX, int fromY,int toX,int toY){ //tn metodin avulla katsotaan onko jotain nappuloita from ja
 	
-		//jos nappula on "Knight" metodi  palauttaa true, eli ei ole mit��n
+		//jos nappula on "Knight" metodi  palauttaa true, eli ei o
 		if(fromSpot.annaPiece().getName().matches("Knight")){
 			return true;
 		}
@@ -273,19 +273,19 @@ public class ChessLogic implements Serializable{
 	
 	private void Castle(int fromX, int fromY,int toX,int toY){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
 		
-		if(fromSpot.annaPiece().annaFirstMove()){ // ensiin t�ytyy kastsoa, onko King first move true
+		if(fromSpot.annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 			
 			if(fromSpot.annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
 				
-				if(fromX==4 && fromY==0 && toX==6 && toY==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ // t�ss� tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromX==4 && fromY==0 && toX==6 && toY==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					
 					if(nothingHits(4, 0, Colour.BLACK) && nothingHits(5 ,0, Colour.BLACK) && nothingHits(6, 0, Colour.BLACK)){
 						executeMove(7, 0, 5, 0, null);
-						movePiece(fromX, fromY, toX, toY); //siirret��n king
+						movePiece(fromX, fromY, toX, toY); //siirretaan king
 						hitsKing(chessBoard.getSpotWithCoordinates(5, 0).annaPiece().annaVari(), 5, 0);
 					}
 					
-				}else if(fromX==4 && fromY==0 && toX==2 && toY==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t�ss� tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromX==4 && fromY==0 && toX==2 && toY==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					
 					if(isNotOnTheWay(0, 0, 3, 0)){	
 						
@@ -299,13 +299,13 @@ public class ChessLogic implements Serializable{
 					}
 				}
 			}else{ // kun king on musta
-				if(fromX==4 && fromY==7 && toX==6 && toY==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t�ss� tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromX==4 && fromY==7 && toX==6 && toY==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(nothingHits(4, 7, Colour.WHITE) && nothingHits(5 ,7 , Colour.WHITE) && nothingHits(6, 7, Colour.WHITE)){
 						executeMove(7, 7, 5, 7, null);
 						movePiece(fromX, fromY, toX, toY); //siirret��n king
 						hitsKing(chessBoard.getSpotWithCoordinates(5, 7).annaPiece().annaVari(), 5, 7);
 					}
-				}else if(fromX==4 && fromY==7 && toX==2 && toY==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ // t�ss� tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromX==4 && fromY==7 && toX==2 && toY==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(isNotOnTheWay(0, 7, 3, 7)){
 						if(nothingHits(4, 7, Colour.WHITE) && nothingHits(3 , 7, Colour.WHITE) && nothingHits(2, 7 , Colour.WHITE)){
 							executeMove(0, 7, 3, 7, null);
@@ -321,7 +321,7 @@ public class ChessLogic implements Serializable{
 	private void enPassantMove(int fromX,int fromY,int toX,int toY,int moves){ //metodi katso onko movePiece "en passant" tapanen
 		
 		if(toSpot.annaPiece().getName().matches("Pawn ") && Math.abs(fromY-toY)==2){
-			enPassantBoard[toX][toY]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti miss� on tapahtunut "en passant"
+			enPassantBoard[toX][toY]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti miss�on tapahtunut "en passant"
 			enPassantBoardMove[toX][toY]=moves; //asettaa "enPassantBoardMove" int taulukkoon kuinka mones move se oli 
 		}
 		
