@@ -40,11 +40,11 @@ public class KingTest extends  BeforeEachTest {
     public void acceptableMovesTest(Colour colour){
 
                     for (Coordinate fromCoordinate : coordinates ){
-                        Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-                        king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+                        Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+                        king.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
                         for (Coordinate toCoornidate : coordinates ){
-                            if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate())<=1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) <=1) {
-                                assertTrue(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                            if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate())<=1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) <=1) {
+                                assertTrue(king.isAttackPossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
                             }
 
                         }
@@ -58,11 +58,11 @@ public class KingTest extends  BeforeEachTest {
     public void notAcceptableMovesTest(Colour colour){
 
         for (Coordinate fromCoordinate : coordinates ){
-            Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-            king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+            Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+            king.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
             for (Coordinate toCoornidate : coordinates ){
-                if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate()) > 1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) > 1) {
-                    assertFalse(king.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate()) > 1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) > 1) {
+                    assertFalse(king.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
                 }
 
             }

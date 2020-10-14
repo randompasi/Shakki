@@ -5,6 +5,7 @@ import java.io.Serializable;
 import ChessPieces.*;
 import UI.Winner;
 import UI.changePawn;
+import Util.Coordinate;
 
 public class ChessLogic implements Serializable{
 
@@ -20,6 +21,10 @@ public class ChessLogic implements Serializable{
 	private int moves;
 	private Spot fromSpot;
 	private Spot toSpot;
+	private int fromX;
+	private int fromY;
+	private int toX;
+	private int toY;
 
 
 	public ChessLogic(){
@@ -40,9 +45,14 @@ public class ChessLogic implements Serializable{
 
 	}
 
-	public void move(int fromX, int fromY,int toX,int toY){
-      this.fromSpot	=	getSpot(fromX, fromY);
-		this.toSpot	=	getSpot(toX, toY);
+	public void move(Coordinate fromCoordinate, Coordinate toCoordinate){
+      this.fromSpot	=	getSpot(fromCoordinate);
+		this.toSpot	=	getSpot(toCoordinate);
+		fromX = fromCoordinate.getXCoordinate();
+		 fromY= fromCoordinate.getYCoordinate();
+		 toX =  toCoordinate.getXCoordinate();
+		 toY = toCoordinate.getYCoordinate();
+
 
 		if(fromSpot !=null){ // katsotaan onko from paikkassa nappula
 			if(checkTurn(fromX, fromY)){
@@ -535,7 +545,11 @@ public class ChessLogic implements Serializable{
 		}
 	}
 	
-	public Spot getSpot(int x, int y){ //metodi palauttaa board
+	public Spot getSpot(Coordinate coordinate){ //metodi palauttaa board
+		return chessBoard.getSpotWithCoordinates(coordinate.getXCoordinate(),coordinate.getYCoordinate()) ;
+	}
+
+	public Spot getSpot(int x,  int y){ //metodi palauttaa board
 		return chessBoard.getSpotWithCoordinates(x,y) ;
 	}
 

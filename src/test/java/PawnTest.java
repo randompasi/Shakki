@@ -39,14 +39,14 @@ public class PawnTest extends BeforeEachTest {
     public void acceptableMovesTest(Colour colour){
 
         for (Coordinate fromCoordinate : coordinates ){
-            Piece pawn = new Pawn(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-            pawn.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
+            Piece pawn = new Pawn(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+            pawn.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
 
                 for (Coordinate toCoornidate : coordinates) {
-                    if (toCoornidate.getxCoordinate() == fromCoordinate.getxCoordinate() && toCoornidate.getyCoordinate() - fromCoordinate.getyCoordinate() == 1 && colour == Colour.WHITE) {
-                        assertTrue(pawn.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
-                    } else if (toCoornidate.getxCoordinate() == fromCoordinate.getxCoordinate() && fromCoordinate.getyCoordinate() - toCoornidate.getyCoordinate() == 1 &&  colour == Colour.BLACK) {
-                        assertTrue(pawn.isMovePossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
+                    if (toCoornidate.getXCoordinate() == fromCoordinate.getXCoordinate() && toCoornidate.getYCoordinate() - fromCoordinate.getYCoordinate() == 1 && colour == Colour.WHITE) {
+                        assertTrue(pawn.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
+                    } else if (toCoornidate.getXCoordinate() == fromCoordinate.getXCoordinate() && fromCoordinate.getYCoordinate() - toCoornidate.getYCoordinate() == 1 &&  colour == Colour.BLACK) {
+                        assertTrue(pawn.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
                     }
 
                 }
@@ -56,22 +56,4 @@ public class PawnTest extends BeforeEachTest {
 
     }
 
-
-//
-//    @ParameterizedTest
-//    @EnumSource(Colour.class)
-//    public void notAcceptableMovesTest(Colour colour){
-//
-//        for (Coordinate fromCoordinate : coordinates ){
-//            Piece king = new King(colour, fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-//            king.changeKoords(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate());
-//            for (Coordinate toCoornidate : coordinates ){
-//                if(Math.abs(fromCoordinate.getxCoordinate()-toCoornidate.getxCoordinate()) > 1 && Math.abs(fromCoordinate.getyCoordinate()-toCoornidate.getyCoordinate()) > 1) {
-//                    assertFalse(king.isAttackPossible(fromCoordinate.getxCoordinate(), fromCoordinate.getyCoordinate(), toCoornidate.getxCoordinate(), toCoornidate.getyCoordinate()));
-//                }
-//
-//            }
-//        }
-//
-//    }
 }

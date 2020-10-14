@@ -4,6 +4,7 @@ package UI;
 import ChessPieces.Colour;
 import ChessPieces.Piece;
 import GameLogic.*;
+import Util.Coordinate;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.GridPane;
@@ -78,8 +79,8 @@ public class Graphics extends Panel {
                 
                 square.widthProperty().bind(chessBoard.widthProperty().divide(size));
                 square.heightProperty().bind(chessBoard.heightProperty().divide(size));
-            	if(CB.getSpot(col, row) != null && CB.getSpot(col, row).annaPiece() != null){
-            		ImageView imgView = new ImageView(chooseImage(CB.getSpot(col, row).annaPiece()));
+            	if(CB.getSpot(new Coordinate(col, row)) != null && CB.getSpot(new Coordinate(col, row)).annaPiece() != null){
+            		ImageView imgView = new ImageView(chooseImage(CB.getSpot(new Coordinate(col, row)).annaPiece()));
             		chessBoard.add(imgView,col ,row );
        
             		imgView.fitWidthProperty().bind(square.widthProperty()); 
@@ -110,7 +111,7 @@ public class Graphics extends Panel {
             					vaihto=true;
                 				toX = j;
                 				toY = i;
-                				CB.move(moveX, moveY, toX, toY);
+                				CB.move(new Coordinate(moveX,moveY), new Coordinate(toX,toY));
                 				
                 				createChessBoard();
             				}
