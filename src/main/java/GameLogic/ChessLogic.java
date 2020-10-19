@@ -21,12 +21,8 @@ public class ChessLogic implements Serializable{
 	private Player p2;
 	private Colour turn;
 	private int moves;
-	private Spot fromSpot;
-	private Spot toSpot;
-//	private int fromX;
-//	private int fromY;
-//	private int toX;
-//	private int toY;
+	private Coordinate fromCoordinate;
+	private Coordinate toCoordinate;
 
 
 	public ChessLogic(){
@@ -48,12 +44,10 @@ public class ChessLogic implements Serializable{
 	}
 
 	public void move(Coordinate fromCoordinate, Coordinate toCoordinate){
-		Spot fromSpot	=	getSpot(fromCoordinate);
+		this.fromCoordinate	=	fromCoordinate;
+		this.toCoordinate	=	toCoordinate;
 		Spot toSpot	=	getSpot(toCoordinate);
-//		fromX = fromCoordinate.getXCoordinate();
-//		 fromY= fromCoordinate.getYCoordinate();
-//		 toX =  toCoordinate.getXCoordinate();
-//		 toY = toCoordinate.getYCoordinate();
+		Spot fromSpot	=	getSpot(fromCoordinate);
 
 
 		if(fromSpot !=null){ // katsotaan onko from paikkassa nappula
@@ -174,7 +168,7 @@ public class ChessLogic implements Serializable{
 
 
 	private boolean checkPiecesColour(){ //metodi palautta true jos from ja to paikassa nappulat ovapalauttaa false jos  ovat eri
-		if(fromSpot.annaPiece().annaVari() == toSpot.annaPiece().annaVari()){
+		if(getSpot(fromCoordinate).annaPiece().annaVari() == getSpot(toCoordinate).annaPiece().annaVari()){
 			return false;
 		}
 		return true;
@@ -284,9 +278,9 @@ public class ChessLogic implements Serializable{
 		int toX = toCoordinate.getXCoordinate();
 		int toY = toCoordinate.getYCoordinate();
 
-		if(fromSpot.annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
+		if(getSpot(fromCoordinate).annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 
-			if(fromSpot.annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
+			if(getSpot(fromCoordinate).annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
 
 				if(fromX==4 && fromY==0 && toX==6 && toY==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
@@ -343,7 +337,7 @@ public class ChessLogic implements Serializable{
 		if(isEnPassant(fromCoordinate,toCoordinate)){
 			movePiece(fromCoordinate, toCoordinate);
 			getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(null);
-			if(fromSpot.annaPiece()!=null){
+			if(getSpot(fromCoordinate).annaPiece()!=null){
 				getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(temp);
 			}else{
 				moves++;
@@ -355,7 +349,7 @@ public class ChessLogic implements Serializable{
 	private boolean isEnPassant(Coordinate fromCoordinate, Coordinate toCoordinate){
 		if(getSpot(fromCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate())==1 && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getYCoordinate())==1){
 
-			if(enPassantBoard[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()-1] && moves - enPassantBoardMove[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] == 1){
+			if(enPassantBoard[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] && moves - enPassantBoardMove[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] == 1){
 					return true;
 
 			}
@@ -439,8 +433,8 @@ public class ChessLogic implements Serializable{
 		}
 	}
 
-	private boolean simulateMove(int fromX, int fromY){
-
+	private boolean simulateMove(int fromX, int fromY, Coordinate fromCoordinate){
+     Spot  fromSpot = getSpot(fromCoordinate);
 		Piece temp = fromSpot.annaPiece();
 		Piece temp2;
 		for(int i=0;i<8;i++){
