@@ -1,5 +1,7 @@
 package ChessPieces;
 
+import Util.Coordinate;
+
 import java.io.Serializable;
 
 public abstract class Piece implements Serializable{
@@ -45,5 +47,7 @@ public abstract class Piece implements Serializable{
 	public abstract String getName();
 	public abstract boolean isMovePossible(int fromX, int fromY, int toX, int toY);
 	public abstract boolean isAttackPossible(int fromX, int fromY, int toX, int toY);
+	public abstract boolean isMovePossible(Coordinate coordinate);
+	public abstract boolean isAttackPossible(Coordinate coordinate);
 	
 }
