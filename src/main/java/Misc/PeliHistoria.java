@@ -1,4 +1,4 @@
-package GameLogic;
+package Misc;
 
 import ChessPieces.Piece;
 

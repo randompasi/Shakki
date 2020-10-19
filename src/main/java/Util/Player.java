@@ -1,4 +1,4 @@
-package GameLogic;
+package Util;
 
 import ChessPieces.Colour;
 
