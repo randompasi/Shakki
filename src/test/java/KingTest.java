@@ -41,10 +41,10 @@ public class KingTest extends  BeforeEachTest {
 
                     for (Coordinate fromCoordinate : coordinates ){
                         Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
-                        king.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+                        king.changeKoords(fromCoordinate);
                         for (Coordinate toCoornidate : coordinates ){
                             if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate())<=1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) <=1) {
-                                assertTrue(king.isAttackPossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
+                                assertTrue(king.isAttackPossible(toCoornidate));
                             }
 
                         }
@@ -59,10 +59,10 @@ public class KingTest extends  BeforeEachTest {
 
         for (Coordinate fromCoordinate : coordinates ){
             Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
-            king.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+            king.changeKoords(fromCoordinate);
             for (Coordinate toCoornidate : coordinates ){
                 if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate()) > 1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) > 1) {
-                    assertFalse(king.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
+                    assertFalse(king.isMovePossible(toCoornidate));
                 }
 
             }
@@ -76,12 +76,12 @@ public class KingTest extends  BeforeEachTest {
 
         if(colour == Colour.WHITE) {
             king = new King(colour, 4, 0);
-            assertTrue(king.isAttackPossible(4,0,6,0));
-            assertTrue(king.isAttackPossible(4,0,2,0));
+            assertTrue(king.isAttackPossible(new Coordinate(6,0)));
+            assertTrue(king.isAttackPossible(new Coordinate(2,0)));
         }else{
             king = new King(colour, 4, 7);
-            assertTrue(king.isAttackPossible(4,7,6,7));
-            assertTrue(king.isAttackPossible(4,7,2,7));
+            assertTrue(king.isAttackPossible(new Coordinate(6,7)));
+            assertTrue(king.isAttackPossible(new Coordinate(2,0)));
 
         }
 

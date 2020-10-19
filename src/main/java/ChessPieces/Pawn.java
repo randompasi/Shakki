@@ -1,5 +1,7 @@
 package ChessPieces;
 
+import Util.Coordinate;
+
 import java.io.Serializable;
 import java.util.function.BiFunction;
 
@@ -54,6 +56,16 @@ public class Pawn extends Piece implements Serializable{
 			}
 		}
 		return false;
+	}
+
+	@Override
+	public boolean isMovePossible(Coordinate toCoordinate) {
+		return 	isMovePossible(x, y, toCoordinate.getXCoordinate(),toCoordinate.getYCoordinate());
+	}
+
+	@Override
+	public boolean isAttackPossible(Coordinate toCoordinate) {
+		return isAttackPossible(x, y, toCoordinate.getXCoordinate(),toCoordinate.getYCoordinate());
 	}
 	
 	public String getName(){

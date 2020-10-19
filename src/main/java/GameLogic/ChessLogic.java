@@ -48,8 +48,8 @@ public class ChessLogic implements Serializable{
 	}
 
 	public void move(Coordinate fromCoordinate, Coordinate toCoordinate){
-      this.fromSpot	=	getSpot(fromCoordinate);
-		this.toSpot	=	getSpot(toCoordinate);
+		Spot fromSpot	=	getSpot(fromCoordinate);
+		Spot toSpot	=	getSpot(toCoordinate);
 //		fromX = fromCoordinate.getXCoordinate();
 //		 fromY= fromCoordinate.getYCoordinate();
 //		 toX =  toCoordinate.getXCoordinate();
@@ -89,36 +89,36 @@ public class ChessLogic implements Serializable{
 		}
 	}
 
-	private void executeMove(int fromX,int fromY,int toX,int toY, Piece piece){
-		chessBoard.getSpotWithCoordinates(toX,toY).addPiece(chessBoard.getSpotWithCoordinates(fromX,fromY).annaPiece());  // jos ei ole, to paikassa on from nappula
-		chessBoard.getSpotWithCoordinates(fromX,fromY).addPiece(piece); // ja from paikassa on nyt null nappula
+	private void executeMove(Coordinate fromCoordinate, Coordinate toCoordinate, Piece piece){
+		getSpot(toCoordinate).addPiece(getSpot(fromCoordinate).annaPiece());  // jos ei ole, to paikassa on from nappula
+		getSpot(fromCoordinate).addPiece(piece); // ja from paikassa on nyt null nappula
 		if(piece!=null){
-			chessBoard.getSpotWithCoordinates(fromX,fromY).annaPiece().changeKoords(fromX, fromY);
+			getSpot(fromCoordinate).annaPiece().changeKoords(fromCoordinate);
 		}
-		chessBoard.getSpotWithCoordinates(toX, toY).annaPiece().changeKoords(toX, toY); //aseta nappulan uudet koordinatit ja laittaa firstMove falseksi
+		getSpot(toCoordinate).annaPiece().changeKoords(toCoordinate); //aseta nappulan uudet koordinatit ja laittaa firstMove falseksi
 	}
 
-	private void movePiece(int fromX, int fromY,int toX,int toY){ //metodi liikkuu nappuloita
+	private void movePiece(Coordinate fromCoordinate, Coordinate toCoordinate){ //metodi liikkuu nappuloita
 
-			Piece temp = toSpot.annaPiece();
-			executeMove(fromX, fromY, toX, toY, null);
-			preventFromCheck( toSpot.annaPiece().annaVari());
-			if(!((toSpot.annaPiece().annaVari()==Colour.BLACK && BlackKingIsOnCheck) || (toSpot.annaPiece().annaVari()==Colour.WHITE && WhiteKingIsOnCheck))){
-				if(causesNoCheck(toSpot.annaPiece().annaVari())){
-				enPassantMove(fromX, fromY, toX, toY, moves); //tarkastellaan "en passant"
-				hitsKing(toSpot.annaPiece().annaVari(), toX, toY);
+			Piece temp = getSpot(toCoordinate).annaPiece();
+			executeMove(fromCoordinate, toCoordinate, null);
+			preventFromCheck( getSpot(toCoordinate).annaPiece().annaVari());
+			if(!((getSpot(toCoordinate).annaPiece().annaVari()==Colour.BLACK && BlackKingIsOnCheck) || (getSpot(toCoordinate).annaPiece().annaVari()==Colour.WHITE && WhiteKingIsOnCheck))){
+				if(causesNoCheck(getSpot(toCoordinate).annaPiece().annaVari())){
+				enPassantMove(fromCoordinate, toCoordinate, moves); //tarkastellaan "en passant"
+				hitsKing(getSpot(toCoordinate).annaPiece().annaVari(), toCoordinate);
 				setTurn(); // asetetaan peli vuoro
 				moves++; // li
-				pawnAtEnd(toX, toY);//pawn at 0 or 7
-				PH.lisaaHistoriaan(toSpot.annaPiece(),fromX, fromY, toX, toY); //lisen liike Peli Historiaan
+				pawnAtEnd(toCoordinate);//pawn at 0 or 7
+				//PH.lisaaHistoriaan(toSpot.annaPiece(),fromX, fromY, toX, toY); //lisen liike Peli Historiaan
 				kingCheckMate();
 				}else{
 					System.out.println("/////////////////  WRONG MOVE, KING WILL BE ON CHECK  /////////////////\n");
-					executeMove(toX, toY, fromX, fromY, temp);
+					executeMove(fromCoordinate, toCoordinate, temp);
 				}
 			}else{
 				System.out.println("/////////////////  WRONG MOVE, KING IS ON CHECK  /////////////////\n");
-				executeMove(toX, toY, fromX, fromY, temp);
+				executeMove(fromCoordinate, toCoordinate, temp);
 			}
 
 	}
@@ -131,8 +131,8 @@ public class ChessLogic implements Serializable{
 			for(int j=0;j<8;j++){
 				if(chessBoard.getSpotWithCoordinates(i,j).annaPiece()!=null){
 					if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().annaVari()!=colour){
-						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(i, j, King.annaX(), King.annaY())){//<------------
-							if(isNotOnTheWay(i, j, King.annaX(), King.annaY())){
+						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(new Coordinate(i,j))){//<------------
+							if(isNotOnTheWay(new Coordinate(i, j), new Coordinate(King.annaX(), King.annaY()))){
 								return false;
 							}
 						}
@@ -153,8 +153,8 @@ public class ChessLogic implements Serializable{
 			for(int j=0;j<8;j++){
 				if(chessBoard.getSpotWithCoordinates(i,j).annaPiece()!=null){
 					if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().annaVari()!=colour){
-						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(i, j, King.annaX(), King.annaY())){//<------------
-							if(isNotOnTheWay(i, j, King.annaX(), King.annaY())){
+						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(new Coordinate(i,j))){//<------------
+							if(isNotOnTheWay(new Coordinate(i, j), new Coordinate(King.annaX(), King.annaY()))){
 								NumberOfPiecesThatAreHittingKing++;
 							}
 						}
@@ -183,9 +183,14 @@ public class ChessLogic implements Serializable{
 	private boolean isNotOnTheWay(Coordinate fromCoordinate,Coordinate toCoordinate){ //tn metodin avulla katsotaan onko jotain nappuloita from ja
 
 		//jos nappula on "Knight" metodi  palauttaa true, eli ei o
-		if(fromSpot.annaPiece().getName().matches("Knight")){
+		if(getSpot(fromCoordinate).annaPiece().getName().matches("Knight")){
 			return true;
 		}
+
+		int fromX = fromCoordinate.getXCoordinate();
+		int fromY = fromCoordinate.getYCoordinate();
+		int toX = toCoordinate.getXCoordinate();
+		int toY = toCoordinate.getYCoordinate();
 
 		if(fromX==toX){ // X akseli
 			if(toY>fromY){
@@ -247,7 +252,7 @@ public class ChessLogic implements Serializable{
 
 		return true;
 	}
-	private boolean nothingHits(int toX, int toY, Colour colour){
+	private boolean nothingHits(Coordinate toCoordinate, Colour colour){
 
 		int NumberOfPiecesThatAreHittingTOXTOY = 0;
 
@@ -255,8 +260,8 @@ public class ChessLogic implements Serializable{
 			for(int j=0;j<8;j++){
 				if(chessBoard.getSpotWithCoordinates(i, j).annaPiece()!=null){
 					if(chessBoard.getSpotWithCoordinates(i, j).annaPiece().annaVari()==colour){
-						if(chessBoard.getSpotWithCoordinates(i, j).annaPiece().isAttackPossible(i, j, toX, toY)){//<------------
-							if(isNotOnTheWay(i, j, toX, toY)){
+						if(chessBoard.getSpotWithCoordinates(i, j).annaPiece().isAttackPossible(toCoordinate)){//<------------
+							if(isNotOnTheWay(new Coordinate(i,j), toCoordinate)){
 								NumberOfPiecesThatAreHittingTOXTOY++;
 							}
 						}
@@ -272,7 +277,12 @@ public class ChessLogic implements Serializable{
 
 	}
 
-	private void Castle(int fromX, int fromY,int toX,int toY){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
+	private void Castle(Coordinate fromCoordinate, Coordinate toCoordinate){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
+
+		int fromX = fromCoordinate.getXCoordinate();
+		int fromY = fromCoordinate.getYCoordinate();
+		int toX = toCoordinate.getXCoordinate();
+		int toY = toCoordinate.getYCoordinate();
 
 		if(fromSpot.annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 
@@ -280,38 +290,38 @@ public class ChessLogic implements Serializable{
 
 				if(fromX==4 && fromY==0 && toX==6 && toY==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
-					if(nothingHits(4, 0, Colour.BLACK) && nothingHits(5 ,0, Colour.BLACK) && nothingHits(6, 0, Colour.BLACK)){
-						executeMove(7, 0, 5, 0, null);
-						movePiece(fromX, fromY, toX, toY); //siirretaan king
-						hitsKing(chessBoard.getSpotWithCoordinates(5, 0).annaPiece().annaVari(), 5, 0);
+					if(nothingHits(new Coordinate(4, 0), Colour.BLACK) && nothingHits(new Coordinate(5 ,0), Colour.BLACK) && nothingHits(new Coordinate(6, 0), Colour.BLACK)){
+						executeMove(new Coordinate(7,0), new Coordinate(5,0), null);
+						movePiece(fromCoordinate,toCoordinate); //siirretaan king
+						hitsKing(chessBoard.getSpotWithCoordinates(5, 0).annaPiece().annaVari(), new Coordinate(5, 0));
 					}
 
 				}else if(fromX==4 && fromY==0 && toX==2 && toY==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
-					if(isNotOnTheWay(0, 0, 3, 0)){
+					if(isNotOnTheWay(new Coordinate(0,0), new Coordinate(3,0))){
 
-						if(nothingHits(4, 0, Colour.BLACK) && nothingHits(3 ,0, Colour.BLACK) && nothingHits(2, 0 , Colour.BLACK)){
+						if(nothingHits(new Coordinate(4, 0), Colour.BLACK) && nothingHits(new Coordinate(3 ,0), Colour.BLACK) && nothingHits(new Coordinate(2, 0), Colour.BLACK)){
 
-							executeMove(0, 0, 3, 0, null);
-							movePiece(fromX, fromY, toX, toY); //siirretn king
-							hitsKing(chessBoard.getSpotWithCoordinates(3, 0).annaPiece().annaVari(), 3, 0);
+							executeMove(new Coordinate(0,0), new Coordinate(3,0), null);
+							movePiece(fromCoordinate,toCoordinate); //siirretn king
+							hitsKing(getSpot(new Coordinate(3,0)).annaPiece().annaVari(), new Coordinate(3, 0));
 						}
 
 					}
 				}
 			}else{ // kun king on musta
 				if(fromX==4 && fromY==7 && toX==6 && toY==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
-					if(nothingHits(4, 7, Colour.WHITE) && nothingHits(5 ,7 , Colour.WHITE) && nothingHits(6, 7, Colour.WHITE)){
-						executeMove(7, 7, 5, 7, null);
-						movePiece(fromX, fromY, toX, toY); //siirretn king
-						hitsKing(chessBoard.getSpotWithCoordinates(5, 7).annaPiece().annaVari(), 5, 7);
+					if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(5 ,7), Colour.WHITE) && nothingHits(new Coordinate(6, 7), Colour.WHITE)){
+						executeMove(new Coordinate(7,7), new Coordinate(5,7), null);
+						movePiece(fromCoordinate,toCoordinate); //siirretn king
+						hitsKing(getSpot(new Coordinate(5,7)).annaPiece().annaVari(), new Coordinate(5, 7));
 					}
 				}else if(fromX==4 && fromY==7 && toX==2 && toY==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
-					if(isNotOnTheWay(0, 7, 3, 7)){
-						if(nothingHits(4, 7, Colour.WHITE) && nothingHits(3 , 7, Colour.WHITE) && nothingHits(2, 7 , Colour.WHITE)){
-							executeMove(0, 7, 3, 7, null);
-							movePiece(fromX, fromY, toX, toY); //siirretn king
-							hitsKing(chessBoard.getSpotWithCoordinates(3, 7).annaPiece().annaVari(), 3, 7);
+					if(isNotOnTheWay(new Coordinate(0,7), new Coordinate(3,7))){
+						if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(3 , 7), Colour.WHITE) && nothingHits(new Coordinate(2, 7), Colour.WHITE)){
+							executeMove(new Coordinate(0,7), new Coordinate(3,7), null);
+							movePiece(fromCoordinate,toCoordinate); //siirretn king
+							hitsKing(getSpot(new Coordinate(3,7)).annaPiece().annaVari(), new Coordinate(3,7));
 						}
 					}
 				}
@@ -319,39 +329,46 @@ public class ChessLogic implements Serializable{
 		}
 	}
 
-	private void enPassantMove(int fromX,int fromY,int toX,int toY,int moves){ //metodi katso onko movePiece "en passant" tapanen
-		if(toSpot.annaPiece().getName().matches("Pawn") && Math.abs(fromY-toY)==2){
-			enPassantBoard[toX][toY]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti misson tapahtunut "en passant"
-			enPassantBoardMove[toX][toY]=moves; //asettaa "enPassantBoardMove" int taulukkoon kuinka mones move se oli
+	private void enPassantMove(Coordinate fromCoordinate, Coordinate toCoordinate,int moves){ //metodi katso onko movePiece "en passant" tapanen
+		if(getSpot(toCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getYCoordinate())==2){
+			enPassantBoard[fromCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti misson tapahtunut "en passant"
+			enPassantBoardMove[toCoordinate.getXCoordinate()][toCoordinate.getYCoordinate()]=moves; //asettaa "enPassantBoardMove" int taulukkoon kuinka mones move se oli
 		}
 
 	}
 
-	private void enPassant(int fromX, int fromY,int toX,int toY){ //metodi toteutaa "en passant"
+	private void enPassant(Coordinate fromCoordinate, Coordinate toCoordinate){ //metodi toteutaa "en passant"
 
-		Piece temp=getSpot(fromX,fromY).annaPiece();
+		Piece temp=getSpot(fromCoordinate).annaPiece();
+		if(isEnPassant(fromCoordinate,toCoordinate)){
+			movePiece(fromCoordinate, toCoordinate);
+			getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(null);
+			if(fromSpot.annaPiece()!=null){
+				getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(temp);
+			}else{
+				moves++;
+				}
+		}
 
-		if(fromSpot.annaPiece().getName().matches("Pawn") && Math.abs(fromX-toX)==1 && Math.abs(fromY-toY)==1){
+	}
 
-			if(enPassantBoard[toX][fromY] && moves - enPassantBoardMove[toX][fromY] == 1){
+	private boolean isEnPassant(Coordinate fromCoordinate, Coordinate toCoordinate){
+		if(getSpot(fromCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate())==1 && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getXCoordinate())==1){
 
-					movePiece(fromX, fromY, toX, toY);
-					getSpot(toX, fromY).addPiece(null);
-					if(fromSpot.annaPiece()!=null){
-						getSpot(toX, fromY).addPiece(temp);
-					}else{
-						moves++;
-					}
+			if(enPassantBoard[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] && moves - enPassantBoardMove[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] == 1){
+					return true;
+
 			}
 		}
+		return false;
 	}
 
-	private void hitsKing(Colour colour, int toX,int toY){
+	private void hitsKing(Colour colour, Coordinate toCoordinate){
 
 		Piece King = etsiKing(annaOppositeColour(colour));
 		if(toSpot.annaPiece()!=null){
-			if(toSpot.annaPiece().isAttackPossible(toX, toY, King.annaX(), King.annaY())){
-				if(isNotOnTheWay(toX, toY, King.annaX(), King.annaY())){
+			if(toSpot.annaPiece().isAttackPossible(toCoordinate)){
+				if(isNotOnTheWay(toCoordinate, new Coordinate(King.annaX(), King.annaY()))){
 					if(colour==Colour.WHITE){
 						BlackKingIsOnCheck=true;
 					}else{
@@ -435,18 +452,18 @@ public class ChessLogic implements Serializable{
 
 				if(getSpot(i,j).annaPiece()!=null){
 					Spot spot = getSpot(i,j);
-					if(fromSpot.annaPiece().isAttackPossible(fromX, fromY, i, j) && turn!=spot.annaPiece().annaVari()){
-						if(isNotOnTheWay(fromX, fromY, i, j)){
+					if(fromSpot.annaPiece().isAttackPossible(new Coordinate(i,j)) && turn!=spot.annaPiece().annaVari()){
+						if(isNotOnTheWay(new Coordinate(fromX, fromY), new Coordinate(i, j))){
 							temp2=spot.annaPiece();
 							spot.addPiece(temp);
-							spot.annaPiece().changeKoords(i, j);
+							spot.annaPiece().changeKoords(new Coordinate(i, j));
 							fromSpot.addPiece(null);
 							preventFromCheck(turn);
 
 							spot.addPiece(temp2);
-							spot.annaPiece().changeKoords(i, j);
+							spot.annaPiece().changeKoords(new Coordinate(i, j));
 							fromSpot.addPiece(temp);
-							fromSpot.annaPiece().changeKoords(fromX, fromY);
+							fromSpot.annaPiece().changeKoords(new Coordinate(fromX, fromY));
 
 							if(turn==Colour.BLACK){
 
@@ -464,18 +481,18 @@ public class ChessLogic implements Serializable{
 						}
 					}
 				}else{
-					if(fromSpot.annaPiece().isMovePossible(fromX, fromY, i, j)){
+					if(fromSpot.annaPiece().isMovePossible(new Coordinate(i,j))){
 
-						if(isNotOnTheWay(fromX, fromY, i, j)){
+						if(isNotOnTheWay(new Coordinate(fromX, fromY), new Coordinate(i, j))){
 							getSpot(i,j).addPiece(temp);
-							getSpot(i,j).annaPiece().changeKoords(i, j);
+							getSpot(i,j).annaPiece().changeKoords(new Coordinate(i, j));
 							fromSpot.addPiece(null);
 
 							preventFromCheck(turn);
 
 							getSpot(i,j).addPiece(null);
 							fromSpot.addPiece(temp);
-							fromSpot.annaPiece().changeKoords(fromX, fromY);
+							fromSpot.annaPiece().changeKoords(new Coordinate(fromX, fromY));
 
 							if(turn==Colour.BLACK){
 
@@ -500,18 +517,18 @@ public class ChessLogic implements Serializable{
 		return false;
 	}
 
-	private void pawnAtEnd(int x, int y){
-		Piece piece = getSpot(x,y).annaPiece();
+	private void pawnAtEnd(Coordinate toCoordinate){
+		Piece piece = getSpot(toCoordinate).annaPiece();
 		if(piece.getName().matches("Pawn ")){
 			if(piece.annaVari()==Colour.WHITE){
-				if(y==7){
+				if(toCoordinate.getYCoordinate()==7){
 					int z = changePawn.display();
-					pawnImprove(z, x, y, Colour.WHITE);
+					pawnImprove(z, toCoordinate.getXCoordinate(), toCoordinate.getYCoordinate(), Colour.WHITE);
 				}
 			}else{
-				if(y==0){
+				if(toCoordinate.getYCoordinate()==0){
 					int z = changePawn.display();
-					pawnImprove(z, x, y, Colour.BLACK);
+					pawnImprove(z, toCoordinate.getXCoordinate(), toCoordinate.getYCoordinate(), Colour.BLACK);
 				}
 			}
 		}

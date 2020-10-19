@@ -38,15 +38,13 @@ public abstract class Piece implements Serializable{
 	public boolean annaFirstMove(){
 		return firstMove;
 	}
-	public void changeKoords(int x, int y){
-		this.x=x;
-		this.y=y;
+	public void changeKoords(Coordinate coordinate){
+		this.x=coordinate.getXCoordinate();
+		this.y=coordinate.getYCoordinate();
 		firstMove=false;
 	}
 	public Colour getColour() { return colour; }
 	public abstract String getName();
-	public abstract boolean isMovePossible(int fromX, int fromY, int toX, int toY);
-	public abstract boolean isAttackPossible(int fromX, int fromY, int toX, int toY);
 	public abstract boolean isMovePossible(Coordinate coordinate);
 	public abstract boolean isAttackPossible(Coordinate coordinate);
 	
