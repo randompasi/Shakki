@@ -433,8 +433,8 @@ public class ChessLogic implements Serializable{
 		}
 	}
 
-	private boolean simulateMove(int fromX, int fromY, Coordinate fromCoordinate){
-     Spot  fromSpot = getSpot(fromCoordinate);
+	private boolean simulateMove(int fromX, int fromY){
+     Spot  fromSpot = getSpot(new Coordinate(fromX,fromY));
 		Piece temp = fromSpot.annaPiece();
 		Piece temp2;
 		for(int i=0;i<8;i++){
