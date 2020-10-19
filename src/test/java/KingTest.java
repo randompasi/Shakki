@@ -81,7 +81,7 @@ public class KingTest extends  BeforeEachTest {
         }else{
             king = new King(colour, 4, 7);
             assertTrue(king.isAttackPossible(new Coordinate(6,7)));
-            assertTrue(king.isAttackPossible(new Coordinate(2,0)));
+            assertTrue(king.isAttackPossible(new Coordinate(2,7)));
 
         }
 

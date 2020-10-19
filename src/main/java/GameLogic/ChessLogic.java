@@ -361,7 +361,7 @@ public class ChessLogic implements Serializable{
 
 		Piece King = etsiKing(annaOppositeColour(colour));
 		if(getSpot(toCoordinate).annaPiece()!=null){
-			if(getSpot(toCoordinate).annaPiece().isAttackPossible(toCoordinate)){
+			if(getSpot(toCoordinate).annaPiece().isAttackPossible(new Coordinate(King.annaX(), King.annaY()))){
 				if(isNotOnTheWay(toCoordinate, new Coordinate(King.annaX(), King.annaY()))){
 					if(colour==Colour.WHITE){
 						BlackKingIsOnCheck=true;
