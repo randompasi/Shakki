@@ -131,7 +131,7 @@ public class ChessLogic implements Serializable{
 			for(int j=0;j<8;j++){
 				if(chessBoard.getSpotWithCoordinates(i,j).annaPiece()!=null){
 					if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().annaVari()!=colour){
-						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(new Coordinate(i,j))){//<------------
+						if(chessBoard.getSpotWithCoordinates(i,j).annaPiece().isAttackPossible(new Coordinate(King.annaX(), King.annaY()))){//<------------
 							if(isNotOnTheWay(new Coordinate(i, j), new Coordinate(King.annaX(), King.annaY()))){
 								return false;
 							}
@@ -331,7 +331,7 @@ public class ChessLogic implements Serializable{
 
 	private void enPassantMove(Coordinate fromCoordinate, Coordinate toCoordinate,int moves){ //metodi katso onko movePiece "en passant" tapanen
 		if(getSpot(toCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getYCoordinate())==2){
-			enPassantBoard[fromCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti misson tapahtunut "en passant"
+			enPassantBoard[toCoordinate.getXCoordinate()][toCoordinate.getYCoordinate()]=true; //asettaa "enPassantBoard" boolean taulukkoon kordinaatti misson tapahtunut "en passant"
 			enPassantBoardMove[toCoordinate.getXCoordinate()][toCoordinate.getYCoordinate()]=moves; //asettaa "enPassantBoardMove" int taulukkoon kuinka mones move se oli
 		}
 
@@ -353,9 +353,9 @@ public class ChessLogic implements Serializable{
 	}
 
 	private boolean isEnPassant(Coordinate fromCoordinate, Coordinate toCoordinate){
-		if(getSpot(fromCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate())==1 && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getXCoordinate())==1){
+		if(getSpot(fromCoordinate).annaPiece().getName().matches("Pawn") && Math.abs(fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate())==1 && Math.abs(fromCoordinate.getYCoordinate()-toCoordinate.getYCoordinate())==1){
 
-			if(enPassantBoard[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] && moves - enPassantBoardMove[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] == 1){
+			if(enPassantBoard[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()-1] && moves - enPassantBoardMove[toCoordinate.getXCoordinate()][fromCoordinate.getYCoordinate()] == 1){
 					return true;
 
 			}
@@ -366,8 +366,8 @@ public class ChessLogic implements Serializable{
 	private void hitsKing(Colour colour, Coordinate toCoordinate){
 
 		Piece King = etsiKing(annaOppositeColour(colour));
-		if(toSpot.annaPiece()!=null){
-			if(toSpot.annaPiece().isAttackPossible(toCoordinate)){
+		if(getSpot(toCoordinate).annaPiece()!=null){
+			if(getSpot(toCoordinate).annaPiece().isAttackPossible(toCoordinate)){
 				if(isNotOnTheWay(toCoordinate, new Coordinate(King.annaX(), King.annaY()))){
 					if(colour==Colour.WHITE){
 						BlackKingIsOnCheck=true;
