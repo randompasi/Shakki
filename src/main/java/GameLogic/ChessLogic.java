@@ -181,35 +181,31 @@ public class ChessLogic implements Serializable{
 			return true;
 		}
 
-		int fromX = fromCoordinate.getXCoordinate();
-		int fromY = fromCoordinate.getYCoordinate();
-		int toX = toCoordinate.getXCoordinate();
-		int toY = toCoordinate.getYCoordinate();
 
-		if(fromX==toX){ // X akseli
-			if(toY>fromY){
-				for(int i=fromY+1; i<toY; i++){
-					if(getSpot(fromX, i).annaPiece()!=null){
+		if(fromCoordinate.getXCoordinate()==toCoordinate.getXCoordinate()){ // X akseli
+			if(toCoordinate.getYCoordinate()>fromCoordinate.getYCoordinate()){
+				for(int i=fromCoordinate.getYCoordinate()+1; i<toCoordinate.getYCoordinate(); i++){
+					if(getSpot(fromCoordinate.getXCoordinate(), i).annaPiece()!=null){
 						return false;
 					}
 				}
 			}else{
-				for(int i=fromY-1; i>toY; i--){
-					if(getSpot(fromX, i).annaPiece() != null){
+				for(int i=fromCoordinate.getYCoordinate()-1; i>toCoordinate.getYCoordinate(); i--){
+					if(getSpot(fromCoordinate.getXCoordinate(), i).annaPiece() != null){
 						return false;
 					}
 				}
 			}
-		}else if(fromY==toY){ // Y askeli
-			if(toX>fromX){
-				for(int i=fromX+1; i<toX; i++){
-					if(chessBoard.getSpotWithCoordinates(i,fromY).annaPiece()!=null){
+		}else if(fromCoordinate.getYCoordinate()==toCoordinate.getYCoordinate()){ // Y askeli
+			if(toCoordinate.getXCoordinate() > fromCoordinate.getXCoordinate()){
+				for(int i=fromCoordinate.getXCoordinate()+1; i<toCoordinate.getXCoordinate(); i++){
+					if(chessBoard.getSpotWithCoordinates(i,fromCoordinate.getYCoordinate()).annaPiece()!=null){
 						return false;
 					}
 				}
 			}else{
-				for(int i=fromX-1; i>toX; i--){
-					if(chessBoard.getSpotWithCoordinates(i,fromY).annaPiece()!=null){
+				for(int i=fromCoordinate.getXCoordinate()-1; i>toCoordinate.getXCoordinate(); i--){
+					if(chessBoard.getSpotWithCoordinates(i,fromCoordinate.getYCoordinate()).annaPiece()!=null){
 						return false;
 					}
 				}
@@ -217,28 +213,28 @@ public class ChessLogic implements Serializable{
 
 
 		// In diagonal (Suomeksi?)
-		}else if(Math.abs(toX - fromX) == Math.abs(toY- fromY)){
-			if(toX>fromX && toY>fromY){ //NE (North East)
-				for(int i=1;i<toX-fromX; i++){
-					if(chessBoard.getSpotWithCoordinates(fromX+i, fromY+i).annaPiece()!=null){
+		}else if(Math.abs(toCoordinate.getXCoordinate() - fromCoordinate.getXCoordinate()) == Math.abs(toCoordinate.getYCoordinate()- fromCoordinate.getYCoordinate())){
+			if(toCoordinate.getXCoordinate()>fromCoordinate.getXCoordinate() && toCoordinate.getYCoordinate()>fromCoordinate.getYCoordinate()){ //NE (North East)
+				for(int i=1;i<toCoordinate.getXCoordinate()-fromCoordinate.getXCoordinate(); i++){
+					if(chessBoard.getSpotWithCoordinates(fromCoordinate.getXCoordinate()+i, fromCoordinate.getYCoordinate()+i).annaPiece()!=null){
 						return false;
 					}
 				}
-			}else if(toX>fromX && toY<fromY){ //SE (South East)
-				for(int i=1;i<toX-fromX; i++){
-					if(chessBoard.getSpotWithCoordinates(fromX+i, fromY-i).annaPiece()!=null){
+			}else if(toCoordinate.getXCoordinate()>fromCoordinate.getXCoordinate() && toCoordinate.getYCoordinate()<fromCoordinate.getYCoordinate()){ //SE (South East)
+				for(int i=1;i<toCoordinate.getXCoordinate()-fromCoordinate.getXCoordinate(); i++){
+					if(chessBoard.getSpotWithCoordinates(fromCoordinate.getXCoordinate()+i, fromCoordinate.getYCoordinate()-i).annaPiece()!=null){
 						return false;
 					}
 				}
-			}else if(toX<fromX && toY>fromY){ //NW (North West)
-				for(int i=1;i<fromX-toX; i++)
-					if(chessBoard.getSpotWithCoordinates(fromX-i, fromY+i).annaPiece()!=null){
+			}else if(toCoordinate.getXCoordinate()<fromCoordinate.getXCoordinate() && toCoordinate.getYCoordinate()>fromCoordinate.getYCoordinate()){ //NW (North West)
+				for(int i=1;i<fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate(); i++)
+					if(chessBoard.getSpotWithCoordinates(fromCoordinate.getXCoordinate()-i, fromCoordinate.getYCoordinate()+i).annaPiece()!=null){
 						return false;
 					}
 				}
-			}else if(toX<fromX && toX<fromY){ //SW (South West)
-				for(int i=1;i<fromX-toX; i++){
-					if(chessBoard.getSpotWithCoordinates(fromX-i, fromY-i).annaPiece()!=null){
+			}else if(toCoordinate.getXCoordinate()<fromCoordinate.getXCoordinate() && toCoordinate.getXCoordinate()<fromCoordinate.getYCoordinate()){ //SW (South West)
+				for(int i=1;i<fromCoordinate.getXCoordinate()-toCoordinate.getXCoordinate(); i++){
+					if(chessBoard.getSpotWithCoordinates(fromCoordinate.getXCoordinate()-i, fromCoordinate.getYCoordinate()-i).annaPiece()!=null){
 						return false;
 					}
 				}
@@ -273,16 +269,12 @@ public class ChessLogic implements Serializable{
 
 	private void Castle(Coordinate fromCoordinate, Coordinate toCoordinate){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
 
-		int fromX = fromCoordinate.getXCoordinate();
-		int fromY = fromCoordinate.getYCoordinate();
-		int toX = toCoordinate.getXCoordinate();
-		int toY = toCoordinate.getYCoordinate();
 
 		if(getSpot(fromCoordinate).annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 
 			if(getSpot(fromCoordinate).annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
 
-				if(fromX==4 && fromY==0 && toX==6 && toY==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
 					if(nothingHits(new Coordinate(4, 0), Colour.BLACK) && nothingHits(new Coordinate(5 ,0), Colour.BLACK) && nothingHits(new Coordinate(6, 0), Colour.BLACK)){
 						executeMove(new Coordinate(7,0), new Coordinate(5,0), null);
@@ -290,7 +282,7 @@ public class ChessLogic implements Serializable{
 						hitsKing(chessBoard.getSpotWithCoordinates(5, 0).annaPiece().annaVari(), new Coordinate(5, 0));
 					}
 
-				}else if(fromX==4 && fromY==0 && toX==2 && toY==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
 					if(isNotOnTheWay(new Coordinate(0,0), new Coordinate(3,0))){
 
@@ -304,13 +296,13 @@ public class ChessLogic implements Serializable{
 					}
 				}
 			}else{ // kun king on musta
-				if(fromX==4 && fromY==7 && toX==6 && toY==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(5 ,7), Colour.WHITE) && nothingHits(new Coordinate(6, 7), Colour.WHITE)){
 						executeMove(new Coordinate(7,7), new Coordinate(5,7), null);
 						movePiece(fromCoordinate,toCoordinate); //siirretn king
 						hitsKing(getSpot(new Coordinate(5,7)).annaPiece().annaVari(), new Coordinate(5, 7));
 					}
-				}else if(fromX==4 && fromY==7 && toX==2 && toY==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(isNotOnTheWay(new Coordinate(0,7), new Coordinate(3,7))){
 						if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(3 , 7), Colour.WHITE) && nothingHits(new Coordinate(2, 7), Colour.WHITE)){
 							executeMove(new Coordinate(0,7), new Coordinate(3,7), null);
