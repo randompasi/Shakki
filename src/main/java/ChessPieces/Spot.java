@@ -5,8 +5,8 @@ import java.io.Serializable;
 public class Spot implements Serializable{
 	
 	
-	private int x;
-	private int y;
+	private final int x;
+	private final int y;
 	private Piece piece;
 
 
@@ -15,14 +15,7 @@ public class Spot implements Serializable{
 		this.y=y;
 		this.piece=piece;
 	}
-	
-	public int annaX(){
-		return x;
-	}
-	
-	public int annaY(){
-		return y;
-	}
+
 	
 	public void addPiece(Piece piece){
 		this.piece=piece;
