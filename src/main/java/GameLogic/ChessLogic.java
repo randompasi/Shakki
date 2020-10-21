@@ -265,6 +265,7 @@ public class ChessLogic implements Serializable{
 	private void Castling(Coordinate fromCoordinate, Coordinate toCoordinate){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
 
 
+
 		if(getSpot(fromCoordinate).annaPiece().isFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 
 			if(getSpot(fromCoordinate).annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
