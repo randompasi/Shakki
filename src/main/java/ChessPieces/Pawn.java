@@ -12,14 +12,10 @@ public class Pawn extends Piece implements Serializable{
 	//REMEMBER TO CHANGE THIS NAME ADRIAN! NO SPACE!
 	final private String nimi="Pawn";
 	private final BiFunction<Integer,Integer,Integer> subtraction = (a, b) -> (a - b);
-	
-	public Pawn(Colour colour, int x, int y) {
-		super(colour, x, y);
-	}
+
 
 	public Pawn(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);
-		// TODO Auto-generated constructor stub
 	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){

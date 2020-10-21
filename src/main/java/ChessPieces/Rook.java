@@ -7,11 +7,7 @@ import java.io.Serializable;
 public class Rook extends Piece implements Serializable{
 	
 	 final private String nimi="Rook";
-	
-	public Rook(Colour colour, int x, int y) {
-		super(colour, x, y);
-		// TODO Auto-generated constructor stub
-	}
+
 
 	public Rook(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);

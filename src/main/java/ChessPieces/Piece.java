@@ -12,13 +12,6 @@ public abstract class Piece implements Serializable{
 	protected int x;
 	protected int y;
 	protected boolean firstMove;
-	
-	public Piece(Colour colour,int x, int y){
-		this.colour=colour;
-		this.x=x;
-		this.y=y;
-		firstMove=true;
-	}
 
 	public Piece(Colour colour,Coordinate coordinate){
 		this.colour=colour;
@@ -35,12 +28,6 @@ public abstract class Piece implements Serializable{
 	}
 	public Colour annaVari(){
 		return colour;
-	}
-	public void asetaX(int x){
-		this.x=x;
-	}
-	public void asetaY(int y){
-		this.y=y;
 	}
 	public boolean annaFirstMove(){
 		return firstMove;

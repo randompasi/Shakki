@@ -7,11 +7,7 @@ import java.io.Serializable;
 public class Knight extends Piece implements Serializable{
 
 	final private String nimi="Knight";
-	
-	public Knight(Colour colour, int x, int y) {
-		super(colour, x, y);
-		// TODO Auto-generated constructor stub
-	}
+
 
 	public Knight(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);

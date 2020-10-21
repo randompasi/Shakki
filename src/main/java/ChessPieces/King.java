@@ -7,10 +7,7 @@ import java.io.Serializable;
 public class King extends Piece implements Serializable{
 
 	final private String nimi="King";
-	
-	public King(Colour colour, int x, int y) {
-		super(colour, x, y);
-	}
+
 
 	public King(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);

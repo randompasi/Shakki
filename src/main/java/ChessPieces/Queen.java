@@ -8,10 +8,7 @@ public class Queen extends Piece implements Serializable{
 
 	final private String nimi="Queen";
 	
-	public Queen(Colour colour, int x, int y) {
-		super(colour, x, y);
-		// TODO Auto-generated constructor stub
-	}
+
 
 	public Queen(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);
