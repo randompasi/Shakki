@@ -39,16 +39,14 @@ public class Castling {
    private boolean isCastlingPossible(int toX, Piece king){
 
 
-            for(Piece rook : rooks){
-                if(rook.isFirstMove() && king.isFirstMove()){
+        for(Piece rook : rooks){
+            if(rook.isFirstMove() && king.isFirstMove()){
                 if(Math.abs(rook.annaX()-toX) <= 2){
                         return isPieceInWay(rook.annaX(), king);
-
-
-                    }
-                    }
+                }
             }
-            return false;
+        }
+        return false;
     }
 
     private boolean isPieceInWay(int rookX, Piece king) {
@@ -60,21 +58,22 @@ public class Castling {
 
 
 
-    private Spot getSpot(Coordinate coordinate){ //metodi palauttaa board
-        return chessBoard.getSpotWithCoordinates(coordinate.getXCoordinate(),coordinate.getYCoordinate()) ;
-    }
-
-    public Piece getRookForCastling(int toX){
+    public Coordinate getRooksFromCoordination(Coordinate toCooordinate){
         for(Piece rook : rooks){
-            if(Math.abs(rook.annaX()-toX) <= 2){
-                return rook;
+            if(Math.abs(rook.annaX()-toCooordinate.getXCoordinate()) <= 2 && rook.isFirstMove() && rook.annaY() == toCooordinate.getYCoordinate()){
+                return new Coordinate(rook.annaX(), rook.annaY());
             }
         }
         return null;
     }
-    public int  getRooksToCoordination(Piece rook){
-        if(rook.annaX()==0)  return  3;
+    public int  getRooksToXCoordination(int fromX){
+        if(fromX==0)  return  3;
         else return 5;
+    }
+
+
+    private Spot getSpot(Coordinate coordinate){
+        return chessBoard.getSpotWithCoordinates(coordinate.getXCoordinate(),coordinate.getYCoordinate()) ;
     }
 
 }
