@@ -29,7 +29,7 @@ public abstract class Piece implements Serializable{
 	public Colour annaVari(){
 		return colour;
 	}
-	public boolean annaFirstMove(){
+	public boolean isFirstMove(){
 		return firstMove;
 	}
 	public void changeKoords(Coordinate coordinate){
