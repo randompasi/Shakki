@@ -12,6 +12,11 @@ public class Rook extends Piece implements Serializable{
 		super(colour, x, y);
 		// TODO Auto-generated constructor stub
 	}
+
+	public Rook(Colour colour, Coordinate coordinate) {
+		super(colour, coordinate);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
 		if(toX == fromX){

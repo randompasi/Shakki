@@ -179,13 +179,13 @@ public class ChessLogic implements Serializable{
 		if(fromCoordinate.getXCoordinate()==toCoordinate.getXCoordinate()){ // X akseli
 			if(toCoordinate.getYCoordinate()>fromCoordinate.getYCoordinate()){
 				for(int i=fromCoordinate.getYCoordinate()+1; i<toCoordinate.getYCoordinate(); i++){
-					if(getSpot(fromCoordinate.getXCoordinate(), i).annaPiece()!=null){
+					if(getSpot(new Coordinate(fromCoordinate.getXCoordinate(), i)).annaPiece()!=null){
 						return false;
 					}
 				}
 			}else{
 				for(int i=fromCoordinate.getYCoordinate()-1; i>toCoordinate.getYCoordinate(); i--){
-					if(getSpot(fromCoordinate.getXCoordinate(), i).annaPiece() != null){
+					if(getSpot(new Coordinate(fromCoordinate.getXCoordinate(), i)).annaPiece() != null){
 						return false;
 					}
 				}
@@ -319,9 +319,9 @@ public class ChessLogic implements Serializable{
 		Piece temp=getSpot(fromCoordinate).annaPiece();
 		if(isEnPassant(fromCoordinate,toCoordinate)){
 			movePiece(fromCoordinate, toCoordinate);
-			getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(null);
+			getSpot(new Coordinate(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate())).addPiece(null);
 			if(getSpot(fromCoordinate).annaPiece()!=null){
-				getSpot(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate()).addPiece(temp);
+				getSpot(new Coordinate(toCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate())).addPiece(temp);
 			}else{
 				moves++;
 				}
@@ -373,7 +373,7 @@ public class ChessLogic implements Serializable{
 
 		for(int i = 0; i<8; i++){
 			for(int j = 0; j<8; j++){
-				Piece piece = getSpot(i,j).annaPiece();
+				Piece piece = getSpot(new Coordinate(i,j)).annaPiece();
 				if(piece != null){
 					if(piece.getName().matches("King") && piece.annaVari()==colour){
 						return piece;
@@ -390,10 +390,11 @@ public class ChessLogic implements Serializable{
 		if(turn==Colour.BLACK && BlackKingIsOnCheck || turn==Colour.WHITE && WhiteKingIsOnCheck){
 			for(int i=0;i<8;i++){
 				for(int j=0;j<8;j++){
-					Piece piece = getSpot(i,j).annaPiece();
+					Coordinate loopCoordination = new Coordinate(i,j);
+					Piece piece = getSpot(loopCoordination).annaPiece();
 					if(piece!=null){
 						if(piece.annaVari()==turn){
-							if(simulateMove(new Coordinate(i,j))){
+							if(simulateMove(loopCoordination)){
 								didfind++;
 							}
 						}
@@ -419,13 +420,14 @@ public class ChessLogic implements Serializable{
 		Piece temp2;
 		for(int i=0;i<8;i++){
 			for(int j=0;j<8;j++){
+				Coordinate loopCoordination = new Coordinate(i,j);
 
 				if(fromX==i && fromY==j){
 					continue;
 				}
 
-				if(getSpot(i,j).annaPiece()!=null){
-					Spot spot = getSpot(i,j);
+				if(getSpot(loopCoordination).annaPiece()!=null){
+					Spot spot = getSpot(loopCoordination);
 					if(fromSpot.annaPiece().isAttackPossible(new Coordinate(i,j)) && turn!=spot.annaPiece().annaVari()){
 						if(isNotOnTheWay(new Coordinate(fromX, fromY), new Coordinate(i, j))){
 							temp2=spot.annaPiece();
@@ -458,13 +460,13 @@ public class ChessLogic implements Serializable{
 					if(fromSpot.annaPiece().isMovePossible(new Coordinate(i,j))){
 
 						if(isNotOnTheWay(new Coordinate(fromX, fromY), new Coordinate(i, j))){
-							getSpot(i,j).addPiece(temp);
-							getSpot(i,j).annaPiece().changeKoords(new Coordinate(i, j));
+							getSpot(loopCoordination).addPiece(temp);
+							getSpot(loopCoordination).annaPiece().changeKoords(new Coordinate(i, j));
 							fromSpot.addPiece(null);
 
 							preventFromCheck(turn);
 
-							getSpot(i,j).addPiece(null);
+							getSpot(loopCoordination).addPiece(null);
 							fromSpot.addPiece(temp);
 							fromSpot.annaPiece().changeKoords(new Coordinate(fromX, fromY));
 
@@ -497,26 +499,26 @@ public class ChessLogic implements Serializable{
 			if(piece.annaVari()==Colour.WHITE){
 				if(toCoordinate.getYCoordinate()==7){
 					int z = changePawn.display();
-					pawnImprove(z, toCoordinate.getXCoordinate(), toCoordinate.getYCoordinate(), Colour.WHITE);
+					pawnImprove(z, toCoordinate, Colour.WHITE);
 				}
 			}else{
 				if(toCoordinate.getYCoordinate()==0){
 					int z = changePawn.display();
-					pawnImprove(z, toCoordinate.getXCoordinate(), toCoordinate.getYCoordinate(), Colour.BLACK);
+					pawnImprove(z, toCoordinate, Colour.BLACK);
 				}
 			}
 		}
 	}
 
-	private void pawnImprove(int type, int x, int y, Colour colour){
+	private void pawnImprove(int type, Coordinate toCoordinate, Colour colour){
 		if(type == 3)
-			getSpot(x,y).addPiece(new Knight(colour, x, y));
+			getSpot(toCoordinate).addPiece(new Knight(colour, toCoordinate));
 		else if(type == 2)
-			getSpot(x,y).addPiece(new Bishop(colour, x, y));
+			getSpot(toCoordinate).addPiece(new Bishop(colour, toCoordinate));
 		else if(type == 4)
-			getSpot(x,y).addPiece(new Rook(colour, x, y));
+			getSpot(toCoordinate).addPiece(new Rook(colour, toCoordinate));
 		else
-			getSpot(x,y).addPiece(new Queen(colour, x, y));
+			getSpot(toCoordinate).addPiece(new Queen(colour, toCoordinate));
 	}
 
 	private boolean checkTurn(Coordinate coordinate){ // metodi tarkista peli vuoron
@@ -536,9 +538,9 @@ public class ChessLogic implements Serializable{
 		return chessBoard.getSpotWithCoordinates(coordinate.getXCoordinate(),coordinate.getYCoordinate()) ;
 	}
 
-	public Spot getSpot(int x,  int y){ //metodi palauttaa board
-		return chessBoard.getSpotWithCoordinates(x,y) ;
-	}
+//	public Spot getSpot(int x,  int y){ //metodi palauttaa board
+//		return chessBoard.getSpotWithCoordinates(x,y) ;
+//	}
 
 
 

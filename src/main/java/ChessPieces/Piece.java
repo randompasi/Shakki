@@ -19,6 +19,13 @@ public abstract class Piece implements Serializable{
 		this.y=y;
 		firstMove=true;
 	}
+
+	public Piece(Colour colour,Coordinate coordinate){
+		this.colour=colour;
+		this.x=coordinate.getXCoordinate();
+		this.y=coordinate.getYCoordinate();
+		firstMove=true;
+	}
 	
 	public int annaX(){
 		return x;

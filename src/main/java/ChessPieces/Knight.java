@@ -12,6 +12,11 @@ public class Knight extends Piece implements Serializable{
 		super(colour, x, y);
 		// TODO Auto-generated constructor stub
 	}
+
+	public Knight(Colour colour, Coordinate coordinate) {
+		super(colour, coordinate);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
 		

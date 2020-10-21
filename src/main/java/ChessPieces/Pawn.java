@@ -16,6 +16,11 @@ public class Pawn extends Piece implements Serializable{
 	public Pawn(Colour colour, int x, int y) {
 		super(colour, x, y);
 	}
+
+	public Pawn(Colour colour, Coordinate coordinate) {
+		super(colour, coordinate);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
 		if(super.colour==Colour.WHITE){

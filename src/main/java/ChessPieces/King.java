@@ -11,6 +11,11 @@ public class King extends Piece implements Serializable{
 	public King(Colour colour, int x, int y) {
 		super(colour, x, y);
 	}
+
+	public King(Colour colour, Coordinate coordinate) {
+		super(colour, coordinate);
+		// TODO Auto-generated constructor stub
+	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
 
