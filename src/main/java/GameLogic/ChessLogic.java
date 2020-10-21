@@ -47,7 +47,7 @@ public class ChessLogic implements Serializable{
 		Spot fromSpot	=	getSpot(fromCoordinate);
 
 
-		if(fromSpot !=null){ // katsotaan onko from paikkassa nappula
+		if(fromSpot.annaPiece() !=null){ // katsotaan onko from paikkassa nappula
 			if(checkTurn(fromCoordinate)){
 				if(toSpot.annaPiece() !=null){ // katsotaan onko to paikassa nappula
 					if(isDifferentColour()){
@@ -60,8 +60,8 @@ public class ChessLogic implements Serializable{
 				}else{ //jos ei ole  nappula
 					if(fromSpot.annaPiece().isMovePossible(toCoordinate)){//katostaan onko move mahdollista
 						if(isNotOnTheWay(fromCoordinate, toCoordinate)){  //
-							if(fromSpot.annaPiece().getName().matches("King") && Math.abs(toCoordinate.getXCoordinate()-fromCoordinate.getXCoordinate())>1){
-								Castle(fromCoordinate, toCoordinate); // castling option
+							if(isCastling(fromSpot.annaPiece())){
+								Castling(fromCoordinate, toCoordinate); // castling option
 							}else{
 								movePiece(fromCoordinate, toCoordinate);
 							}
@@ -78,6 +78,10 @@ public class ChessLogic implements Serializable{
 				}
 			}
 		}
+	}
+
+	private boolean isCastling(Piece piece){
+	return	piece.getName().matches("King") && Math.abs(toCoordinate.getXCoordinate()-fromCoordinate.getXCoordinate())==2 && toCoordinate.getYCoordinate()-fromCoordinate.getYCoordinate()==0;
 	}
 
 	private void executeMove(Coordinate fromCoordinate, Coordinate toCoordinate, Piece piece){
@@ -258,14 +262,14 @@ public class ChessLogic implements Serializable{
 
 	}
 
-	private void Castle(Coordinate fromCoordinate, Coordinate toCoordinate){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
+	private void Castling(Coordinate fromCoordinate, Coordinate toCoordinate){ // metodi tarkista onko castling mahdollista ja jos se on, suorittaa sen
 
 
-		if(getSpot(fromCoordinate).annaPiece().annaFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
+		if(getSpot(fromCoordinate).annaPiece().isFirstMove()){ // ensiin tytyy kastsoa, onko King first move true
 
 			if(getSpot(fromCoordinate).annaPiece().annaVari()==Colour.WHITE){ //kun king on valkoinen
 
-				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(7, 0).annaPiece().isFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
 					if(nothingHits(new Coordinate(4, 0), Colour.BLACK) && nothingHits(new Coordinate(5 ,0), Colour.BLACK) && nothingHits(new Coordinate(6, 0), Colour.BLACK)){
 						executeMove(new Coordinate(7,0), new Coordinate(5,0), null);
@@ -273,7 +277,7 @@ public class ChessLogic implements Serializable{
 						hitsKing(chessBoard.getSpotWithCoordinates(5, 0).annaPiece().annaVari(), new Coordinate(5, 0));
 					}
 
-				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==0 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==0 && chessBoard.getSpotWithCoordinates(0, 0).annaPiece().isFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 
 					if(isNotOnTheWay(new Coordinate(0,0), new Coordinate(3,0))){
 
@@ -287,13 +291,13 @@ public class ChessLogic implements Serializable{
 					}
 				}
 			}else{ // kun king on musta
-				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().annaFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==6 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(7, 7).annaPiece().isFirstMove()){ // t tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(5 ,7), Colour.WHITE) && nothingHits(new Coordinate(6, 7), Colour.WHITE)){
 						executeMove(new Coordinate(7,7), new Coordinate(5,7), null);
 						movePiece(fromCoordinate,toCoordinate); //siirretn king
 						hitsKing(getSpot(new Coordinate(5,7)).annaPiece().annaVari(), new Coordinate(5, 7));
 					}
-				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().annaFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
+				}else if(fromCoordinate.getXCoordinate()==4 && fromCoordinate.getYCoordinate()==7 && toCoordinate.getXCoordinate()==2 && toCoordinate.getYCoordinate()==7 && chessBoard.getSpotWithCoordinates(0, 7).annaPiece().isFirstMove()){ //  tarkistetaan on from ja to paikassa tietyt koordinatit ja onko tornilla first move true
 					if(isNotOnTheWay(new Coordinate(0,7), new Coordinate(3,7))){
 						if(nothingHits(new Coordinate(4, 7), Colour.WHITE) && nothingHits(new Coordinate(3 , 7), Colour.WHITE) && nothingHits(new Coordinate(2, 7), Colour.WHITE)){
 							executeMove(new Coordinate(0,7), new Coordinate(3,7), null);

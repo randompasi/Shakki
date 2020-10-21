@@ -40,7 +40,7 @@ public class KingTest extends  BeforeEachTest {
     public void acceptableMovesTest(Colour colour){
 
                     for (Coordinate fromCoordinate : coordinates ){
-                        Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+                        Piece king = new King(colour, fromCoordinate);
                         king.changeKoords(fromCoordinate);
                         for (Coordinate toCoornidate : coordinates ){
                             if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate())<=1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) <=1) {
@@ -58,7 +58,7 @@ public class KingTest extends  BeforeEachTest {
     public void notAcceptableMovesTest(Colour colour){
 
         for (Coordinate fromCoordinate : coordinates ){
-            Piece king = new King(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+            Piece king = new King(colour, fromCoordinate);
             king.changeKoords(fromCoordinate);
             for (Coordinate toCoornidate : coordinates ){
                 if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate()) > 1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) > 1) {
@@ -75,11 +75,11 @@ public class KingTest extends  BeforeEachTest {
         Piece king;
 
         if(colour == Colour.WHITE) {
-            king = new King(colour, 4, 0);
+            king = new King(colour, new Coordinate(4, 0));
             assertTrue(king.isAttackPossible(new Coordinate(6,0)));
             assertTrue(king.isAttackPossible(new Coordinate(2,0)));
         }else{
-            king = new King(colour, 4, 7);
+            king = new King(colour, new Coordinate(4, 7));
             assertTrue(king.isAttackPossible(new Coordinate(6,7)));
             assertTrue(king.isAttackPossible(new Coordinate(2,7)));
 
