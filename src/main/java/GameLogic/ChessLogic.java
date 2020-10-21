@@ -50,7 +50,7 @@ public class ChessLogic implements Serializable{
 		if(fromSpot !=null){ // katsotaan onko from paikkassa nappula
 			if(checkTurn(fromCoordinate)){
 				if(toSpot.annaPiece() !=null){ // katsotaan onko to paikassa nappula
-					if(checkPiecesColour()){
+					if(isDifferentColour()){
 						if(fromSpot.annaPiece().isAttackPossible(toCoordinate)){ // jos ovat eri, katsotaan onko attack mahdollista
 							if(isNotOnTheWay(fromCoordinate, toCoordinate)){
 								movePiece(fromCoordinate, toCoordinate);
@@ -164,7 +164,7 @@ public class ChessLogic implements Serializable{
 
 
 
-	private boolean checkPiecesColour(){ //metodi palautta true jos from ja to paikassa nappulat ovapalauttaa false jos  ovat eri
+	private boolean isDifferentColour(){
 		return getSpot(fromCoordinate).annaPiece().annaVari() != getSpot(toCoordinate).annaPiece().annaVari();
 	}
 
@@ -393,7 +393,7 @@ public class ChessLogic implements Serializable{
 					Piece piece = getSpot(i,j).annaPiece();
 					if(piece!=null){
 						if(piece.annaVari()==turn){
-							if(simulateMove(i,j)){
+							if(simulateMove(new Coordinate(i,j))){
 								didfind++;
 							}
 						}
@@ -411,7 +411,9 @@ public class ChessLogic implements Serializable{
 		}
 	}
 
-	private boolean simulateMove(int fromX, int fromY){
+	private boolean simulateMove(Coordinate fromCoordinate){
+		int fromX = fromCoordinate.getXCoordinate();
+		int fromY = fromCoordinate.getYCoordinate();
      Spot  fromSpot = getSpot(new Coordinate(fromX,fromY));
 		Piece temp = fromSpot.annaPiece();
 		Piece temp2;
