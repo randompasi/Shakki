@@ -34,26 +34,33 @@ public class PawnTest extends BeforeEachTest {
 
     }
 
-//    @ParameterizedTest
-//    @EnumSource(Colour.class)
-//    public void acceptableMovesTest(Colour colour){
-//
-//        for (Coordinate fromCoordinate : coordinates ){
-//            Piece pawn = new Pawn(colour, fromCoordinate.getX(), fromCoordinate.getY());
-//            pawn.changeKoords(fromCoordinate.getX(), fromCoordinate.getY());
-//
-//                for (Coordinate toCoornidate : coordinates) {
-//                    if (toCoornidate.getX() == fromCoordinate.getX() && toCoornidate.getY() - fromCoordinate.getY() == 1 && colour == Colour.WHITE) {
-//                        assertTrue(pawn.isMovePossible(fromCoordinate.getX(), fromCoordinate.getY(), toCoornidate.getX(), toCoornidate.getY()));
-//                    } else if (toCoornidate.getX() == fromCoordinate.getX() && fromCoordinate.getY() - toCoornidate.getY() == 1 &&  colour == Colour.BLACK) {
-//                        assertTrue(pawn.isMovePossible(fromCoordinate.getX(), fromCoordinate.getY(), toCoornidate.getX(), toCoornidate.getY()));
-//                    }
-//
-//                }
-//
-//
-//        }
-//
-//    }
+    @ParameterizedTest
+    @EnumSource(Colour.class)
+    public void acceptableMovesTest(Colour colour){
+
+        for (Coordinate fromCoordinate : coordinates ){
+            Piece pawn = new Pawn(colour, fromCoordinate);
+            pawn.changeKoords(fromCoordinate);
+
+                for (Coordinate toCoornidate : coordinates) {
+                    if (toCoornidate.getX() == fromCoordinate.getX() && toCoornidate.getY() - fromCoordinate.getY() == 1 && colour == Colour.WHITE) {
+                        assertTrue(pawn.isMovePossible(toCoornidate));
+                    } else if (toCoornidate.getX() == fromCoordinate.getX() && fromCoordinate.getY() - toCoornidate.getY() == 1 &&  colour == Colour.BLACK) {
+                        try {
+                            assertTrue(pawn.isMovePossible(toCoornidate));
+                        } catch (Exception e) {
+
+                            e.printStackTrace();
+                        }finally {
+                            pawn.isMovePossible(toCoornidate);
+                        }
+                    }
+
+               }
+
+
+      }
+
+   }
 
 }

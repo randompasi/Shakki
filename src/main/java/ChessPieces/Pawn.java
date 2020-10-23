@@ -7,7 +7,7 @@ import java.io.Serializable;
 
 public class Pawn extends Piece implements Serializable{
 
-	
+
 	//REMEMBER TO CHANGE THIS NAME ADRIAN! NO SPACE!
 	final private String nimi="Pawn";
 
@@ -15,10 +15,10 @@ public class Pawn extends Piece implements Serializable{
 	public Pawn(Colour colour, Coordinate coordinate) {
 		super(colour, coordinate);
 	}
-	
 
-	
-	
+
+
+
 
 	private boolean basicMoveCheck(int subtraction, int toX){
 		return toX == fromX && subtraction == 1;
@@ -27,7 +27,7 @@ public class Pawn extends Piece implements Serializable{
 		return Math.abs(from-to);
 	}
 
-	
+
 	public boolean isAttackPossible(int fromX, int fromY, int toX, int toY){
 		if((Math.abs(toY-fromY) == 1 && fromX-toX == 1) || (Math.abs(toY-fromY) == 1 && toX-fromX ==  1))return true;
 		return false;
@@ -35,20 +35,25 @@ public class Pawn extends Piece implements Serializable{
 
 	@Override
 	public boolean isMovePossible(Coordinate toCoordinate) {
-
+		if(isMovingBackward(toCoordinate)) return  false;
 		if(firstMove){
 			if(toCoordinate.getX() == fromX && absoluteDifference(fromY, toCoordinate.getY()) == 2){
 				return true;
 			}
 		}
 		return basicMoveCheck(absoluteDifference(fromY, toCoordinate.getY()), toCoordinate.getX());
-		}
+	}
+
+	private boolean isMovingBackward(Coordinate toCoordinate){
+		if(colour == Colour.BLACK) return toCoordinate.getY() > fromY;
+			else return toCoordinate.getY() < fromY;
+	}
 
 	@Override
 	public boolean isAttackPossible(Coordinate toCoordinate) {
 		return isAttackPossible(fromX, fromY, toCoordinate.getX(),toCoordinate.getY());
 	}
-	
+
 	public String getName(){
 		return nimi;
 	}

@@ -142,7 +142,7 @@ public class Graphics extends Panel {
 	}
 
 	private boolean isWhitePiece(Piece piece){
-		Colour vari = piece.annaVari();
+		Colour vari = piece.getColour();
 		return vari == Colour.WHITE;
 	}
 
