@@ -37,7 +37,7 @@ public class Knight extends Piece implements Serializable{
 
 	@Override
 	public boolean isMovePossible(Coordinate toCoordinate) {
-		return 	isMovePossible(x, y, toCoordinate.getXCoordinate(),toCoordinate.getYCoordinate());
+		return 	isMovePossible(fromX, fromY, toCoordinate.getX(),toCoordinate.getY());
 	}
 
 	@Override

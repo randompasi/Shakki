@@ -9,7 +9,7 @@ import java.util.List;
 
 public class Castling {
 
-    private ChessBoard chessBoard;
+    private final ChessBoard chessBoard;
   List<Piece> rooks = new ArrayList<>();
 
     public Castling(ChessBoard chessBoard) {
@@ -22,7 +22,7 @@ public class Castling {
 
 
     public boolean isCastling(Piece king, Coordinate toCoordinate){
-        return  isPieceKing(king) && isMoveCastling(king,toCoordinate) && isCastlingPossible(toCoordinate.getXCoordinate(), king);
+        return  isPieceKing(king) && isMoveCastling(king,toCoordinate) && isCastlingPossible(toCoordinate.getX(), king);
 
 
     }
@@ -32,7 +32,7 @@ public class Castling {
 
 
     private boolean isMoveCastling(Piece king, Coordinate toCoordinate){
-     return    Math.abs(toCoordinate.getXCoordinate()- king.annaX())==2 && toCoordinate.getYCoordinate()- king.annaY()==0;
+     return    Math.abs(toCoordinate.getX()- king.getX())==2 && toCoordinate.getY()- king.getY()==0;
     }
 
 
@@ -41,8 +41,8 @@ public class Castling {
 
         for(Piece rook : rooks){
             if(rook.isFirstMove() && king.isFirstMove()){
-                if(Math.abs(rook.annaX()-toX) <= 2){
-                        return isPieceInWay(rook.annaX(), king);
+                if(Math.abs(rook.getX()-toX) <= 2){
+                        return isPieceInWay(rook.getX(), king);
                 }
             }
         }
@@ -50,8 +50,8 @@ public class Castling {
     }
 
     private boolean isPieceInWay(int rookX, Piece king) {
-        for (int i = rookX + 1 ; i < king.annaX() ; i++){
-            if(chessBoard.getSpotWithCoordinates(i, king.annaY()).annaPiece() != null) return false;
+        for (int i = rookX + 1; i < king.getX() ; i++){
+            if(chessBoard.getSpotWithCoordinates(i, king.getY()).annaPiece() != null) return false;
         }
         return true;
     }
@@ -60,8 +60,8 @@ public class Castling {
 
     public Coordinate getRooksFromCoordination(Coordinate toCooordinate){
         for(Piece rook : rooks){
-            if(Math.abs(rook.annaX()-toCooordinate.getXCoordinate()) <= 2 && rook.isFirstMove() && rook.annaY() == toCooordinate.getYCoordinate()){
-                return new Coordinate(rook.annaX(), rook.annaY());
+            if(Math.abs(rook.getX()-toCooordinate.getX()) <= 2 && rook.isFirstMove() && rook.getY() == toCooordinate.getY()){
+                return new Coordinate(rook.getX(), rook.getY());
             }
         }
         return null;
@@ -73,7 +73,7 @@ public class Castling {
 
 
     private Spot getSpot(Coordinate coordinate){
-        return chessBoard.getSpotWithCoordinates(coordinate.getXCoordinate(),coordinate.getYCoordinate()) ;
+        return chessBoard.getSpotWithCoordinates(coordinate.getX(),coordinate.getY()) ;
     }
 
 }

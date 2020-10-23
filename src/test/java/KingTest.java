@@ -43,7 +43,7 @@ public class KingTest extends  BeforeEachTest {
                         Piece king = new King(colour, fromCoordinate);
                         king.changeKoords(fromCoordinate);
                         for (Coordinate toCoornidate : coordinates ){
-                            if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate())<=1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) <=1) {
+                            if(Math.abs(fromCoordinate.getX()-toCoornidate.getX())<=1 && Math.abs(fromCoordinate.getY()-toCoornidate.getY()) <=1) {
                                 assertTrue(king.isAttackPossible(toCoornidate));
                             }
 
@@ -61,7 +61,7 @@ public class KingTest extends  BeforeEachTest {
             Piece king = new King(colour, fromCoordinate);
             king.changeKoords(fromCoordinate);
             for (Coordinate toCoornidate : coordinates ){
-                if(Math.abs(fromCoordinate.getXCoordinate()-toCoornidate.getXCoordinate()) > 1 && Math.abs(fromCoordinate.getYCoordinate()-toCoornidate.getYCoordinate()) > 1) {
+                if(Math.abs(fromCoordinate.getX()-toCoornidate.getX()) > 1 && Math.abs(fromCoordinate.getY()-toCoornidate.getY()) > 1) {
                     assertFalse(king.isMovePossible(toCoornidate));
                 }
 

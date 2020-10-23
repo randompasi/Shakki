@@ -8,23 +8,24 @@ public class Coordinate {
 
 
     private int xCoordinate;
+    private int yCoordinate;
 
     public Coordinate(int xCoordinate, int yCoordinate) {
         this.xCoordinate = xCoordinate;
         this.yCoordinate = yCoordinate;
     }
 
-    public int getXCoordinate() {
+    public int getX() {
         return xCoordinate;
     }
 
 
 
-    public int getYCoordinate() {
+    public int getY() {
         return yCoordinate;
     }
 
 
 
-    private int yCoordinate;
+
 }

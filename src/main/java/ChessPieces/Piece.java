@@ -9,32 +9,29 @@ public abstract class Piece implements Serializable{
 
 
 	protected Colour colour;
-	protected int x;
-	protected int y;
+	protected int fromX;
+	protected int fromY;
 	protected boolean firstMove;
 
 	public Piece(Colour colour,Coordinate coordinate){
 		this.colour=colour;
-		this.x=coordinate.getXCoordinate();
-		this.y=coordinate.getYCoordinate();
+		this.fromX =coordinate.getX();
+		this.fromY =coordinate.getY();
 		firstMove=true;
 	}
 	
-	public int annaX(){
-		return x;
+	public int getX(){
+		return fromX;
 	}
-	public int annaY(){
-		return y;
-	}
-	public Colour annaVari(){
-		return colour;
+	public int getY(){
+		return fromY;
 	}
 	public boolean isFirstMove(){
 		return firstMove;
 	}
 	public void changeKoords(Coordinate coordinate){
-		this.x=coordinate.getXCoordinate();
-		this.y=coordinate.getYCoordinate();
+		this.fromX =coordinate.getX();
+		this.fromY =coordinate.getY();
 		firstMove=false;
 	}
 	public Colour getColour() { return colour; }

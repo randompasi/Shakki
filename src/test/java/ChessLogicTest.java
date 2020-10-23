@@ -1,7 +1,4 @@
-import ChessPieces.Colour;
-import ChessPieces.Pawn;
 import ChessPieces.Piece;
-import ChessPieces.Spot;
 import GameLogic.ChessLogic;
 import Util.Coordinate;
 import org.junit.jupiter.api.BeforeEach;
@@ -23,8 +20,8 @@ public class ChessLogicTest extends BeforeEachTest {
 
         Piece piece = chessLogic.getSpot(new Coordinate(0,1)).annaPiece();
         chessLogic.move(new Coordinate(0,1),new Coordinate(0,2));
-        assertEquals(0, piece.annaX());
-        assertEquals(2, piece.annaY());
+        assertEquals(0, piece.getX());
+        assertEquals(2, piece.getY());
         assertEquals(piece, chessLogic.getSpot(new Coordinate(0,2)).annaPiece());
     }
 
@@ -32,8 +29,8 @@ public class ChessLogicTest extends BeforeEachTest {
     public void moveWhiteKnightTest(){
         Piece piece = chessLogic.getSpot(new Coordinate(1,0)).annaPiece();
         chessLogic.move(new Coordinate(1,0),new Coordinate(0,2));
-        assertEquals(0, piece.annaX());
-        assertEquals(2, piece.annaY());
+        assertEquals(0, piece.getX());
+        assertEquals(2, piece.getY());
         assertEquals(piece, chessLogic.getSpot(new Coordinate(0,2)).annaPiece());
 
 
@@ -47,11 +44,11 @@ public class ChessLogicTest extends BeforeEachTest {
         Piece king = chessLogic.getSpot(new Coordinate(4,0)).annaPiece();
         Piece rook = chessLogic.getSpot(new Coordinate(7,0)).annaPiece();
         chessLogic.move(new Coordinate(4,0),new Coordinate(6,0));
-        assertEquals(6, king.annaX());
-        assertEquals(0, king.annaY());
+        assertEquals(6, king.getX());
+        assertEquals(0, king.getY());
         assertEquals(king, chessLogic.getSpot(new Coordinate(6,0)).annaPiece());
-        assertEquals(5, rook.annaX());
-       assertEquals(0, rook.annaY());
+        assertEquals(5, rook.getX());
+       assertEquals(0, rook.getY());
        assertEquals(rook, chessLogic.getSpot(new Coordinate(5,0)).annaPiece());
 
 
@@ -66,10 +63,10 @@ public class ChessLogicTest extends BeforeEachTest {
         chessLogic.move(new Coordinate(1,3),new Coordinate(1,4));//yksi eteenpain valkoinen
         chessLogic.move(new Coordinate(0,6),new Coordinate(0,4));//musta 2 eteenpain
         chessLogic.move(new Coordinate(1,4),new Coordinate(0,5));
-        assertEquals(0, whitePawn.annaX(), whitePawn.annaX()+" "+whitePawn.annaY());
-        assertEquals(5, whitePawn.annaY(), "Y Coordinate");
+        assertEquals(0, whitePawn.getX(), whitePawn.getX()+" "+whitePawn.getY());
+        assertEquals(5, whitePawn.getY(), "Y Coordinate");
         assertEquals(whitePawn, chessLogic.getSpot(new Coordinate(0,5)).annaPiece());
-        assertEquals(0, whitePawn.annaX(), whitePawn.annaX()+" "+whitePawn.annaY());
+        assertEquals(0, whitePawn.getX(), whitePawn.getX()+" "+whitePawn.getY());
         assertEquals(null, chessLogic.getSpot(new Coordinate(0,4)).annaPiece(), "Blackpawn");
 
 

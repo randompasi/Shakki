@@ -39,14 +39,14 @@ public class PawnTest extends BeforeEachTest {
 //    public void acceptableMovesTest(Colour colour){
 //
 //        for (Coordinate fromCoordinate : coordinates ){
-//            Piece pawn = new Pawn(colour, fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
-//            pawn.changeKoords(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate());
+//            Piece pawn = new Pawn(colour, fromCoordinate.getX(), fromCoordinate.getY());
+//            pawn.changeKoords(fromCoordinate.getX(), fromCoordinate.getY());
 //
 //                for (Coordinate toCoornidate : coordinates) {
-//                    if (toCoornidate.getXCoordinate() == fromCoordinate.getXCoordinate() && toCoornidate.getYCoordinate() - fromCoordinate.getYCoordinate() == 1 && colour == Colour.WHITE) {
-//                        assertTrue(pawn.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
-//                    } else if (toCoornidate.getXCoordinate() == fromCoordinate.getXCoordinate() && fromCoordinate.getYCoordinate() - toCoornidate.getYCoordinate() == 1 &&  colour == Colour.BLACK) {
-//                        assertTrue(pawn.isMovePossible(fromCoordinate.getXCoordinate(), fromCoordinate.getYCoordinate(), toCoornidate.getXCoordinate(), toCoornidate.getYCoordinate()));
+//                    if (toCoornidate.getX() == fromCoordinate.getX() && toCoornidate.getY() - fromCoordinate.getY() == 1 && colour == Colour.WHITE) {
+//                        assertTrue(pawn.isMovePossible(fromCoordinate.getX(), fromCoordinate.getY(), toCoornidate.getX(), toCoornidate.getY()));
+//                    } else if (toCoornidate.getX() == fromCoordinate.getX() && fromCoordinate.getY() - toCoornidate.getY() == 1 &&  colour == Colour.BLACK) {
+//                        assertTrue(pawn.isMovePossible(fromCoordinate.getX(), fromCoordinate.getY(), toCoornidate.getX(), toCoornidate.getY()));
 //                    }
 //
 //                }
