@@ -41,45 +41,37 @@ public class ChessLogic implements Serializable{
 
 	}
 
-	public void move(Coordinate fromCoordinate, Coordinate toCoordinate){
-		this.fromCoordinate	=	fromCoordinate;
-		this.toCoordinate	=	toCoordinate;
+	public void move(Coordinate fromCoordinate, Coordinate toCoordinate) {
+		this.fromCoordinate = fromCoordinate;
+		this.toCoordinate = toCoordinate;
 		this.castling = new Castling(chessBoard);
-		Spot toSpot	=	getSpot(toCoordinate);
-		Spot fromSpot	=	getSpot(fromCoordinate);
+		Spot fromSpot = getSpot(fromCoordinate);
 
 
-		if(fromSpot.annaPiece() !=null){ // katsotaan onko from paikkassa nappula
-			if(checkTurn(fromCoordinate)){
-				if(toSpot.annaPiece() !=null){ // katsotaan onko to paikassa nappula
-					if(isDifferentColour()){
-						if(fromSpot.annaPiece().isAttackPossible(toCoordinate)){ // jos ovat eri, katsotaan onko attack mahdollista
-							if(isNotOnTheWay(fromCoordinate, toCoordinate)){
-								movePiece(fromCoordinate, toCoordinate);
-							}
-						}
-					}
-				}else{ //jos ei ole  nappula
-					if(fromSpot.annaPiece().isMovePossible(toCoordinate)){//katostaan onko move mahdollista
-						if(isNotOnTheWay(fromCoordinate, toCoordinate)){  //
-							if(castling.isCastling(fromSpot.annaPiece(),toCoordinate)){
-								Castling(fromCoordinate, toCoordinate); // castling option
-							}else{
-								movePiece(fromCoordinate, toCoordinate);
-							}
-						}
-					}else{
-						enPassant(fromCoordinate, toCoordinate);
-					}
+		if (fromSpot.annaPiece() == null) return;
+
+
+		if (isAttackMove(toCoordinate) || isMove(toCoordinate)) {
+				if (castling.isCastling(fromSpot.annaPiece(), toCoordinate)) {
+					Castling(fromCoordinate, toCoordinate); // castling option
+				} else {
+					movePiece(fromCoordinate, toCoordinate);
 				}
-			}else{
-				if(turn==Colour.WHITE){
-					System.out.println("It is "+p1.annaNimi()+"'s turn");
-				}else{
-					System.out.println("It is "+p2.annaNimi()+"'s turn");
-				}
-			}
+
+		} else {
+			enPassant(fromCoordinate, toCoordinate);
 		}
+
+	}
+
+
+
+
+	private boolean isAttackMove(Coordinate toCoordinate){
+		return  getSpot(toCoordinate).annaPiece() !=null && checkTurn(fromCoordinate) && isDifferentColour() &&  getSpot(toCoordinate).annaPiece().isAttackPossible(toCoordinate);
+	}
+	private boolean isMove(Coordinate toCoordinate){
+		return checkTurn(fromCoordinate) && getSpot(fromCoordinate).annaPiece().isMovePossible(toCoordinate);
 	}
 
 
@@ -471,7 +463,7 @@ public class ChessLogic implements Serializable{
 		return turn == getSpot(coordinate).annaPiece().getColour();
 	}
 
-	private void setTurn(){ //metodi asettaa peli vuoron
+	private void setTurn(){ 
 		if(turn==Colour.WHITE){
 			turn=Colour.BLACK;
 		}else{
