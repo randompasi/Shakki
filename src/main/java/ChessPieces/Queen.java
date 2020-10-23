@@ -27,10 +27,6 @@ public class Queen extends Piece implements Serializable{
 		}
 		return false;
 	}
-	public boolean isAttackPossible(int fromX, int fromY, int toX, int toY){
-		return isMovePossible(fromX, fromY, toX, toY);
-	}
-
 	@Override
 	public boolean isMovePossible(Coordinate toCoordinate) {
 		return 	isMovePossible(fromX, fromY, toCoordinate.getX(),toCoordinate.getY());

@@ -15,10 +15,6 @@ public class Knight extends Piece implements Serializable{
 	}
 	
 	public boolean isMovePossible(int fromX, int fromY, int toX, int toY){
-		
-		//twoHorizontallyOneVertically()
-		//oneHorizontallytwoVertically
-
 
 		if(Math.abs(toX-fromX)==1 && Math.abs(toY-fromY)==2){
 			return true;
@@ -28,12 +24,6 @@ public class Knight extends Piece implements Serializable{
 		}
 		return false;
 	}
-
-
-	public boolean isAttackPossible(int fromX, int fromY, int toX, int toY){
-		return isMovePossible(fromX, fromY, toX, toY);
-	}
-
 
 	@Override
 	public boolean isMovePossible(Coordinate toCoordinate) {

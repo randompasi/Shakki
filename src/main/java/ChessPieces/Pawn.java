@@ -1,7 +1,6 @@
 package ChessPieces;
 
 import Util.Coordinate;
-
 import java.io.Serializable;
 import java.util.function.BiFunction;
 
@@ -41,13 +40,14 @@ public class Pawn extends Piece implements Serializable{
 		return toCoordinate.getY() != fromY && isDistance(toCoordinate, 1);
 	}
 
-	public String getName(){
-		return nimi;
-	}
-
 	private boolean isDistance(Coordinate toCoordinate, int targetDistance){
 	int realDistance =	pythagora.apply(toCoordinate, new Coordinate(fromX,fromY));
 
 	return realDistance != 0 && realDistance <= targetDistance;
+	}
+
+
+	public String getName(){
+		return nimi;
 	}
 }
