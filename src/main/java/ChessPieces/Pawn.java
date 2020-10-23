@@ -3,12 +3,13 @@ package ChessPieces;
 import Util.Coordinate;
 
 import java.io.Serializable;
+import java.util.function.BiFunction;
 
 
 public class Pawn extends Piece implements Serializable{
 
 
-	//REMEMBER TO CHANGE THIS NAME ADRIAN! NO SPACE!
+	private BiFunction<Coordinate,Coordinate, Integer> pythagora = (coordinate, coordinate2) ->  (int)Math.sqrt(Math.pow(coordinate.getX()-coordinate2.getX(), 2) + Math.pow(coordinate.getY()-coordinate2.getY(), 2));
 	final private String nimi="Pawn";
 
 
@@ -35,13 +36,12 @@ public class Pawn extends Piece implements Serializable{
 
 	@Override
 	public boolean isMovePossible(Coordinate toCoordinate) {
-		if(isMovingBackward(toCoordinate)) return  false;
-		if(firstMove){
-			if(toCoordinate.getX() == fromX && absoluteDifference(fromY, toCoordinate.getY()) == 2){
-				return true;
-			}
-		}
-		return basicMoveCheck(absoluteDifference(fromY, toCoordinate.getY()), toCoordinate.getX());
+		if (isMovingBackward(toCoordinate)) return false;
+
+		int distance = 1;
+		if (firstMove) distance = 2;
+			return toCoordinate.getX() == fromX && isDistance(toCoordinate, distance);
+
 	}
 
 	private boolean isMovingBackward(Coordinate toCoordinate){
@@ -56,5 +56,11 @@ public class Pawn extends Piece implements Serializable{
 
 	public String getName(){
 		return nimi;
+	}
+
+	private boolean isDistance(Coordinate toCoordinate, int targetDistance){
+	int realDistance =	pythagora.apply(toCoordinate, new Coordinate(fromX,fromY));
+
+	return realDistance != 0 && realDistance <= targetDistance;
 	}
 }
