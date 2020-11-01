@@ -68,10 +68,10 @@ public class ChessLogic implements Serializable{
 
 
 	private boolean isAttackMove(Coordinate toCoordinate){
-		return  getSpot(toCoordinate).annaPiece() !=null && checkTurn(fromCoordinate) && isDifferentColour() &&  getSpot(toCoordinate).annaPiece().isAttackPossible(toCoordinate);
+		return  getSpot(toCoordinate).annaPiece() !=null && checkTurn(fromCoordinate) && isDifferentColour() &&  getSpot(toCoordinate).annaPiece().isAttackPossible(toCoordinate) && isNotOnTheWay(fromCoordinate,toCoordinate);
 	}
 	private boolean isMove(Coordinate toCoordinate){
-		return checkTurn(fromCoordinate) && getSpot(fromCoordinate).annaPiece().isMovePossible(toCoordinate);
+		return checkTurn(fromCoordinate) && getSpot(fromCoordinate).annaPiece().isMovePossible(toCoordinate) && isNotOnTheWay(fromCoordinate,toCoordinate);
 	}
 
 
@@ -173,11 +173,10 @@ public class ChessLogic implements Serializable{
 
 		if(fromCoordinate.getX()==toCoordinate.getX()){ // X akseli
 			if(toCoordinate.getY()>fromCoordinate.getY()){
-				for(int i = fromCoordinate.getY()+1; i<toCoordinate.getY(); i++){
-					if(getSpot(new Coordinate(fromCoordinate.getX(), i)).annaPiece()!=null){
+					if(isPiece(fromCoordinate, toCoordinate)) {
 						return false;
 					}
-				}
+
 			}else{
 				for(int i = fromCoordinate.getY()-1; i>toCoordinate.getY(); i--){
 					if(getSpot(new Coordinate(fromCoordinate.getX(), i)).annaPiece() != null){
@@ -230,6 +229,15 @@ public class ChessLogic implements Serializable{
 			}
 
 		return true;
+	}
+
+	private boolean isPiece(Coordinate fromCoordinate, Coordinate toCoordinate){
+		for(int i = fromCoordinate.getY()+1; i<toCoordinate.getY(); i++){
+			if(getSpot(new Coordinate(fromCoordinate.getX(), i)).annaPiece() != null){
+				return true;
+			}
+		}
+		return false;
 	}
 
 
