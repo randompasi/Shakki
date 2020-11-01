@@ -5,10 +5,7 @@ import ChessPieces.Piece;
 import org.junit.jupiter.params.ParameterizedTest;
 import org.junit.jupiter.params.provider.EnumSource;
 
-
-
-import static org.junit.jupiter.api.Assertions.assertFalse;
-import static org.junit.jupiter.api.Assertions.assertTrue;
+import static org.junit.jupiter.api.Assertions.*;
 
 
 public class KingTest extends  BeforeEachTest {
@@ -43,9 +40,8 @@ public class KingTest extends  BeforeEachTest {
                         Piece king = new King(colour, fromCoordinate);
                         king.changeKoords(fromCoordinate);
                         for (Coordinate toCoornidate : coordinates ){
-                            if(Math.abs(fromCoordinate.getX()-toCoornidate.getX())<=1 && Math.abs(fromCoordinate.getY()-toCoornidate.getY()) <=1) {
+                          if( 1 == (int)Math.sqrt(Math.pow(fromCoordinate.getX()-toCoornidate.getX(), 2) + Math.pow(fromCoordinate.getY()-toCoornidate.getY(), 2)))
                                 assertTrue(king.isAttackPossible(toCoornidate));
-                            }
 
                         }
                     }
