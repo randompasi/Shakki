@@ -1,6 +1,10 @@
 package GameLogic;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.List;
+import java.util.function.Consumer;
 
 import ChessPieces.*;
 import UI.Winner;
@@ -171,33 +175,14 @@ public class ChessLogic implements Serializable{
 		}
 
 
-		if(fromCoordinate.getX()==toCoordinate.getX()){ // X akseli
-			if(toCoordinate.getY()>fromCoordinate.getY()){
-					if(isPiece(fromCoordinate, toCoordinate)) {
+					if(isPieces(fromCoordinate, toCoordinate)) {
 						return false;
 					}
 
-			}else{
-				for(int i = fromCoordinate.getY()-1; i>toCoordinate.getY(); i--){
-					if(getSpot(new Coordinate(fromCoordinate.getX(), i)).annaPiece() != null){
-						return false;
-					}
-				}
-			}
-		}else if(fromCoordinate.getY()==toCoordinate.getY()){ // Y askeli
-			if(toCoordinate.getX() > fromCoordinate.getX()){
-				for(int i = fromCoordinate.getX()+1; i<toCoordinate.getX(); i++){
-					if(chessBoard.getSpotWithCoordinates(i,fromCoordinate.getY()).annaPiece()!=null){
-						return false;
-					}
-				}
-			}else{
-				for(int i = fromCoordinate.getX()-1; i>toCoordinate.getX(); i--){
-					if(chessBoard.getSpotWithCoordinates(i,fromCoordinate.getY()).annaPiece()!=null){
-						return false;
-					}
-				}
-			}
+
+					 if(isPieces(toCoordinate, fromCoordinate)) {
+								return false;
+
 
 
 		// In diagonal (Suomeksi?)
@@ -231,14 +216,47 @@ public class ChessLogic implements Serializable{
 		return true;
 	}
 
-	private boolean isPiece(Coordinate fromCoordinate, Coordinate toCoordinate){
-		for(int i = fromCoordinate.getY()+1; i<toCoordinate.getY(); i++){
-			if(getSpot(new Coordinate(fromCoordinate.getX(), i)).annaPiece() != null){
-				return true;
-			}
+	private boolean isPieces(Coordinate fromCoordinate, Coordinate toCoordinate){
+
+		  for(Coordinate coordinate : coordinatesBetween(fromCoordinate, toCoordinate)){
+				if (isPiece(coordinate)) {
+					return true;
+				}
 		}
+
 		return false;
 	}
+
+
+	private boolean isPiece(Coordinate coordinate){
+		return getSpot(coordinate).annaPiece() != null;
+	}
+
+	private List<Coordinate> coordinatesBetween(Coordinate fromCoordinate, Coordinate toCoordinate){
+		List<Coordinate> coordinatesBetween = new ArrayList<>();
+		if (fromCoordinate.getX()==toCoordinate.getX()) {
+			for (int i = fromCoordinate.getY() + 1; i < toCoordinate.getY(); i++) {
+				coordinatesBetween.add(createCoordinate(fromCoordinate,toCoordinate,i));
+			}
+		}
+		else if(fromCoordinate.getY()==toCoordinate.getY()) {
+			for (int i = fromCoordinate.getX() + 1; i < toCoordinate.getX(); i++) {
+				coordinatesBetween.add(createCoordinate(fromCoordinate,toCoordinate,i));
+			}
+		}
+
+		coordinatesBetween.removeAll(Collections.singleton(null));
+		return coordinatesBetween;
+	}
+
+	private Coordinate createCoordinate(Coordinate fromCoordinate, Coordinate toCoordinate, int i){
+		if(fromCoordinate.getX() == toCoordinate.getX()) return  new Coordinate(fromCoordinate.getX(), i);
+		else if(fromCoordinate.getY() == toCoordinate.getY()) return  new Coordinate(i, fromCoordinate.getY());
+		else return null;
+	}
+
+
+
 
 
 	private void Castling(Coordinate kingFrom, Coordinate kingTo){
