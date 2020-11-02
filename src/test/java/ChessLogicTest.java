@@ -38,18 +38,18 @@ public class ChessLogicTest extends BeforeEachTest {
 
     @Test
     public void castlingTest(){
-        for(int x = 5; x<7; x++){
+        for(int x = 1; x<4; x++){
             chessLogic.getSpot(new Coordinate(x,0)).addPiece(null);
         }
         Piece king = chessLogic.getSpot(new Coordinate(4,0)).annaPiece();
-        Piece rook = chessLogic.getSpot(new Coordinate(7,0)).annaPiece();
-        chessLogic.move(new Coordinate(4,0),new Coordinate(6,0));
-        assertEquals(6, king.getX());
+        Piece rook = chessLogic.getSpot(new Coordinate(0,0)).annaPiece();
+        chessLogic.move(new Coordinate(4,0),new Coordinate(2,0));
+        assertEquals(2, king.getX());
         assertEquals(0, king.getY());
-        assertEquals(king, chessLogic.getSpot(new Coordinate(6,0)).annaPiece());
-        assertEquals(5, rook.getX());
+        assertEquals(king, chessLogic.getSpot(new Coordinate(2,0)).annaPiece());
+        assertEquals(3, rook.getX());
        assertEquals(0, rook.getY());
-       assertEquals(rook, chessLogic.getSpot(new Coordinate(5,0)).annaPiece());
+       assertEquals(rook, chessLogic.getSpot(new Coordinate(3,0)).annaPiece());
 
 
     }

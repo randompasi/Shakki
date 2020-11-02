@@ -11,6 +11,7 @@ import UI.Winner;
 import UI.changePawn;
 import Util.Coordinate;
 import Util.Player;
+import javafx.util.Pair;
 
 public class ChessLogic implements Serializable{
 
@@ -177,11 +178,7 @@ public class ChessLogic implements Serializable{
 
 					if(isPieces(fromCoordinate, toCoordinate)) {
 						return false;
-					}
 
-
-					 if(isPieces(toCoordinate, fromCoordinate)) {
-								return false;
 
 
 
@@ -234,19 +231,19 @@ public class ChessLogic implements Serializable{
 
 	private List<Coordinate> coordinatesBetween(Coordinate fromCoordinate, Coordinate toCoordinate){
 		List<Coordinate> coordinatesBetween = new ArrayList<>();
-		if (fromCoordinate.getX()==toCoordinate.getX()) {
-			for (int i = fromCoordinate.getY() + 1; i < toCoordinate.getY(); i++) {
-				coordinatesBetween.add(createCoordinate(fromCoordinate,toCoordinate,i));
+		Pair<Integer,Integer> distance = distance(fromCoordinate, toCoordinate);
+			for (int i = distance.getKey() + 1; i < distance.getValue(); i++) {
+				coordinatesBetween.add(createCoordinate(fromCoordinate, toCoordinate, i));
 			}
-		}
-		else if(fromCoordinate.getY()==toCoordinate.getY()) {
-			for (int i = fromCoordinate.getX() + 1; i < toCoordinate.getX(); i++) {
-				coordinatesBetween.add(createCoordinate(fromCoordinate,toCoordinate,i));
-			}
-		}
 
 		coordinatesBetween.removeAll(Collections.singleton(null));
 		return coordinatesBetween;
+	}
+
+	private Pair<Integer, Integer> distance(Coordinate fromCoordinate, Coordinate toCoordinate){
+		if (fromCoordinate.getX() == toCoordinate.getX()) return new Pair<>(fromCoordinate.getY(),toCoordinate.getY());
+		else if(fromCoordinate.getY() == toCoordinate.getY()) return new Pair<>(fromCoordinate.getX(),toCoordinate.getX());
+		else return new Pair<>(0,1);
 	}
 
 	private Coordinate createCoordinate(Coordinate fromCoordinate, Coordinate toCoordinate, int i){
